@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 06:47:59 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 07:00:46 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_draw_map(t_data *data)
 	while (i < data->map->ymap)
 	{
 		j = 0;
-		while (j < data->map->xmap)
+		while (j < ft_strlen(data->map->map_compo[i]))
 		{
 			color = (int)FLOOR;
 			if (data->map->map_compo[i][j] == '1')
@@ -60,6 +60,7 @@ void	ft_draw_map(t_data *data)
 void	ft_draw_init(t_data *data)
 {
 	ft_draw_map(data);
+	// ft_draw_player(data);
 	// ft_draw_player();
 }
 

@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 06:03:21 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 07:04:34 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,40 @@ t_map	*ft_map_init(t_data *data)
 	map->map_compo = NULL;
 	return (map);
 }
+int	ft_get_player_y(t_data *data)
+{
+	int	y;
 
-t_player	*ft_init_player()
+	y = 0;
+	while (data->map->map_compo[y])
+	{
+		if (ft_strchr(data->map->map_compo[y], 'N'))
+			return(y);
+		y++;
+	}
+	return (0);
+}
+
+int	ft_get_player_x(t_data *data, int ypos)
+{
+	int	x;
+
+	x = 0;
+	while (data->map->map_compo[ypos][x] != 'N')
+		x++;
+	return (x);
+}
+
+t_player	*ft_init_player(t_data *data)
 {
 	t_player *player;
 
 	player = malloc(sizeof(t_player));
 	player->height = 0;
 	player->width = 0;
-	player->xpos = 0;
-	player->ypos = 0;
+	player->ypos = ft_get_player_y(data);
+	player->xpos = ft_get_player_x(data, player->ypos);
+	printf("%f\n", player->xpos);
 	player->xrot = 0;
 	player->yrot = 0;
 	player->angle = 0;
@@ -153,7 +177,7 @@ t_data	*ft_init(char *filename)
 	ft_mlx_init(data);
 	data->texture = ft_init_textures(data);
 	data->main_img = ft_img_init(data);
-	data->player = ft_init_player();
+	data->player = ft_init_player(data);
 	data->ray = ft_ray_init();
 	ft_leaks_add(data);
 	ft_draw_init(data);
