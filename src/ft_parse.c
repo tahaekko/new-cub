@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 04:05:43 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 04:13:31 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	**ft_map_fill(int fd, int width, int height)
 		free(line);
 		line = get_next_line(fd);
 	}
+	res[i] = NULL;
 	return (res);
 }
 
@@ -295,9 +296,7 @@ void	ft_map(t_data *data, char *filename,int fd)
 	close(fd);
 	new_fd = open(filename, O_RDONLY);
 	data->map->map_compo = ft_map_fill(new_fd, data->map->xmap, data->map->ymap);
-	for (int i = 0; i < data->map->ymap;i++)
-		printf("%s", data->map->map_compo[i]);
-	printf("%d\n", data->ciel_color);
+
 }
 
 int	ft_parse(char *filename, t_data *data)
@@ -306,8 +305,6 @@ int	ft_parse(char *filename, t_data *data)
 
 	fd = ft_open(filename);
 	ft_get_xpm_files(data, fd);
-	// ft_get_colors(data, fd);
-	// printf("%d", data->ciel_color);
 	ft_map(data, filename, fd);
 	return (0);
 }
