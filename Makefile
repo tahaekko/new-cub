@@ -6,7 +6,7 @@
 #    By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 17:25:24 by msamhaou          #+#    #+#              #
-#    Updated: 2023/07/25 20:18:05 by msamhaou         ###   ########.fr        #
+#    Updated: 2023/07/30 06:09:13 by msamhaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,8 @@ LIBFT_OBJ = $(addprefix $(OBJ_DIR), $(LIBFT_OBJ_FILE))
 
 #*****************SRC*****************
 SRC_DIR = src/
-SRC = ft_init.c        ft_tool.c        ft_vector_draw.c libx_tools.c     main.c	ft_parse.c
+SRC = ft_init.c        ft_tool.c        ft_vector_draw.c libx_tools.c     main.c	ft_parse.c\
+		ft_draw.c
 FSRC = $(addprefix $(SRC_DIR), $(SRC))
 
 OBJ = $(SRC:.c=.o)

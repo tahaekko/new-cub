@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 05:46:21 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 06:03:21 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_map	*ft_map_init(t_data *data)
 	map = malloc(sizeof(t_map));
 	map->xmap = 0;
 	map->ymap = 0;
-	map->off_map = 0;
+	map->off_map = (int)GRID;
 	map->map_compo = NULL;
 	return (map);
 }
@@ -156,6 +156,6 @@ t_data	*ft_init(char *filename)
 	data->player = ft_init_player();
 	data->ray = ft_ray_init();
 	ft_leaks_add(data);
-	// ft_draw_init(data);
+	ft_draw_init(data);
 	return (data);
 }

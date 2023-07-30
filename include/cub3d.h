@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 05:46:35 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 06:25:34 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define PI 3.141592653589793
 # define RAD_TO_DEG 57.2958
 # define DEG_TO_RAD 0.0174533
-# define GRID 64
+# define GRID 20
 
 #define RECTCOLOR 0x7BB30C
 #define FLOOR 0x1859B3
@@ -154,6 +154,9 @@ int		color_code(int r ,int g ,int b);
 int		ft_parse(char *filename, t_data *data);
 void	ft_free_strings(char **s);
 void	ft_free_all(t_data *data);
+void	ft_draw_init(t_data *data);
+
+
 
 /****************/
 #endif
