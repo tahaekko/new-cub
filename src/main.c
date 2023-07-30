@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 10:09:02 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 05:20:14 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 06:45:16 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	ft_key_press(int key, t_data *data)
 		exit(0);
 	}
 	printf("%d\n", key);
+	if (key == KEY_W)
+		ft_update(data);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 06:25:34 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 06:44:43 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ int		ft_parse(char *filename, t_data *data);
 void	ft_free_strings(char **s);
 void	ft_free_all(t_data *data);
 void	ft_draw_init(t_data *data);
+t_img	*ft_img_init(t_data *data);
+void	ft_update(t_data *data);
 
 
 

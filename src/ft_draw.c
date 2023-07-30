@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 06:33:05 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 06:47:59 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_draw_grid(t_data *data, int x, int y, int color)
 	int	j;
 
 	i = 0;
-	printf("%d\n", data->map->off_map);
 	while (i < data->map->off_map)
 	{
 		j = 0;
@@ -48,8 +47,8 @@ void	ft_draw_map(t_data *data)
 			color = (int)FLOOR;
 			if (data->map->map_compo[i][j] == '1')
 				color = (int)WALL;
-			else if (data->map->map_compo[i][j] == ' ' || data->map->off_map == '\n')
-				color = 0;
+			else if (data->map->map_compo[i][j] != '0' )
+				color = 0xFF000000;
 			ft_draw_grid(data, data->map->off_map * j, data->map->off_map * i, color);
 			j++;
 		}
@@ -61,4 +60,13 @@ void	ft_draw_map(t_data *data)
 void	ft_draw_init(t_data *data)
 {
 	ft_draw_map(data);
+	// ft_draw_player();
+}
+
+void	ft_update(t_data *data)
+{
+	mlx_destroy_image(data->mlx, data->main_img->img_ptr);
+	data->main_img = ft_img_init(data);
+	ft_draw_map(data);
+	// ft_draw_player();
 }
