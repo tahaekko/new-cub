@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 05:38:56 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:44:15 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_img	**ft_init_textures(t_data *data)
 	int i;
 	t_img	**texture;
 
-	texture = malloc(sizeof(t_img) * 5);
+	texture = malloc(sizeof(t_img *) * 5);
 	i = 0;
 	while (i < 4)
 	{
