@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 05:44:15 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:46:21 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,34 +107,33 @@ void	ft_leaks_add(t_data *data)
 
 }
 
-t_img	*ft_get_texture_img(t_data *data, char *file)
+t_img	ft_get_texture_img(t_data *data, char *file)
 {
 	int	x;
 	int y;
 	void	*p;
-	t_img	*texture;
+	t_img	texture;
 
 	x = 0;
 	y = 0;
-	texture = malloc(sizeof(t_img));
+	// texture = malloc(sizeof(t_img));
 	p = mlx_xpm_file_to_image(data->mlx, file, &x, &y);
-	texture->addr = mlx_get_data_addr(p, &texture->bpp, &texture->line, &texture->endian);
+	texture.addr = mlx_get_data_addr(p, &texture.bpp, &texture.line, &texture.endian);
 	return (texture);
 }
 
-t_img	**ft_init_textures(t_data *data)
+t_img	*ft_init_textures(t_data *data)
 {
 	int i;
-	t_img	**texture;
+	t_img	*texture;
 
-	texture = malloc(sizeof(t_img *) * 5);
+	texture = malloc(sizeof(t_img) * 4);
 	i = 0;
 	while (i < 4)
 	{
 		texture[i] = ft_get_texture_img(data, data->files_arr[i]);
 		i++;
 	}
-	texture[i] = NULL;
 	return (texture);
 }
 

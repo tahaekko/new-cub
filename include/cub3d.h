@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 05:37:22 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:46:35 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ typedef struct s_data
 	int			floor_color;
 	int			ciel_color;
 	char		**files_arr;
-	t_img		**texture;
+	t_img		*texture;
 }	t_data;
 
 
