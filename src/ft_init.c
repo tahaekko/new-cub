@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 04:05:32 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:38:56 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,37 @@ void	ft_leaks_add(t_data *data)
 
 }
 
+t_img	*ft_get_texture_img(t_data *data, char *file)
+{
+	int	x;
+	int y;
+	void	*p;
+	t_img	*texture;
+
+	x = 0;
+	y = 0;
+	texture = malloc(sizeof(t_img));
+	p = mlx_xpm_file_to_image(data->mlx, file, &x, &y);
+	texture->addr = mlx_get_data_addr(p, &texture->bpp, &texture->line, &texture->endian);
+	return (texture);
+}
+
+t_img	**ft_init_textures(t_data *data)
+{
+	int i;
+	t_img	**texture;
+
+	texture = malloc(sizeof(t_img) * 5);
+	i = 0;
+	while (i < 4)
+	{
+		texture[i] = ft_get_texture_img(data, data->files_arr[i]);
+		i++;
+	}
+	texture[i] = NULL;
+	return (texture);
+}
+
 t_data	*ft_init(char *filename)
 {
 	t_data *data;
@@ -118,14 +149,14 @@ t_data	*ft_init(char *filename)
 	data->number_of_files = 6;
 	ft_nullafy(data);
 	data->files_arr = ft_chars_alloc(data->number_of_files);
-	data->texture = ft_chars_alloc(data->number_of_files);
 	data->map = ft_map_init(data);
 	ft_parse(filename, data);
 	ft_mlx_init(data);
-	// exit(1);
+	data->texture = ft_init_textures(data);
 	data->main_img = ft_img_init(data);
 	data->player = ft_init_player();
 	data->ray = ft_ray_init();
 	ft_leaks_add(data);
+	// ft_draw_init(data);
 	return (data);
 }

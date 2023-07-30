@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 10:09:02 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/29 02:40:08 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 05:20:14 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_free_all(t_data *data)
 	if (data->files_arr)
 		ft_free_strings(data->files_arr);
 	if (data->texture)
-		ft_free_strings(data->texture);
+		free(data->texture);
 	if (data->player)
 		free(data->player);
 	if (data->ray)
