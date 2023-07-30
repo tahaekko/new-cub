@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 04:13:31 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/07/30 04:24:53 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,12 @@ char	*ft_split_space(const char *str)
 	return (ret);
 }
 
-int	ft_set_color(char *str, char *s)
+int	ft_set_color(char *str)
 {
-	char	*raw;
 	char	**split;
 	int		res;
 
-	raw = ft_substr(str, (unsigned int)ft_strlen(s), ft_strlen(str));
-	split = ft_split(raw, ',');
-	free(raw);
+	split = ft_split(str, ',');
 	res = color_code(ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
 	ft_free_strings(split);
 	return (res);
@@ -169,8 +166,8 @@ void	ft_open_xpm(char **files)
 		close(fd);
 	}
 }
-
-void	ft_get_xpm_files(t_data *data, int fd)
+/*get xpm file and color strings*/
+void	ft_get_xpm_files_colors(t_data *data, int fd)
 {
 	char *line;
 	int	i;
@@ -206,38 +203,8 @@ int	ft_open(char *filename)
 }
 void	ft_get_colors(t_data *data, int fd)
 {
-	int	i;
-	char *line;
-
-	i = 0;
-	while (i < 2)
-	{
-		line = get_next_line(fd);
-		if (!line)
-		{
-			ft_putendl_fd("Error!", 2);
-			exit(1);
-		}
-		if (line[0] == '\n')
-		{
-			free(line);
-			continue;
-		}
-		if (!ft_strncmp(line, "F ", ft_strlen("F "))){
-
-			data->floor_color = ft_set_color(line, "F ");
-			}
-		else if (!ft_strncmp(line, "C ", ft_strlen("C ")))
-			data->ciel_color=  ft_set_color(line, "C ");
-		else
-		{
-			ft_putendl_fd("Error!", 2);
-			exit(1);
-		}
-		free(line);
-		i++;
-
-	}
+	data->floor_color = ft_set_color(data->files_arr[4]);
+	data->ciel_color = ft_set_color(data->files_arr[5]);
 }
 
 void	ft_get_dim(int fd, char *prev_line, t_data *data)
@@ -304,7 +271,9 @@ int	ft_parse(char *filename, t_data *data)
 	int	fd;
 
 	fd = ft_open(filename);
-	ft_get_xpm_files(data, fd);
+	ft_get_xpm_files_colors(data, fd);
+	ft_get_colors(data, fd);
+	printf("%d\n", data->ciel_color);
 	ft_map(data, filename, fd);
 	return (0);
 }

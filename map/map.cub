@@ -4,7 +4,7 @@ WE ./textures/deepslate_diamond_ore.xpm
 EA ./textures/deepslate_emerald_ore.xpm
 
 F 255, 15,20
-C 255,15,20
+C 0,0,20
 
 111111111111111111111
 1000000000000000000001
