@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 14:57:36 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:15:41 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,8 @@ typedef enum s_err
 	MLX,
 	XPM,
 	MAP,
-	CUB
+	CUB,
+	VALID
 }	e_err;
 
 typedef struct s_data

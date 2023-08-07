@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 15:06:36 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/07 16:16:33 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,31 +118,40 @@ int	ft_set_color(char *str, t_collector **col)
 
 int	ft_line_cases(t_data *data, char *line)
 {
+	static int i;
+
 	if (!line)
-	{
-		ft_putendl_fd("Error!", 2);
-		exit(1);
-	}
-	if (!ft_strncmp(line, "NO ", ft_strlen("NO ")))
+		ft_free_error_type(&data->col, 4);
+	if (!ft_strncmp(line, "NO ", ft_strlen("NO "))){
 		data->files_arr[0] = ft_split_space(line, &data->col);
-	else if (!ft_strncmp(line, "SO ", ft_strlen("SO ")))
+		i++;
+		}
+	else if (!ft_strncmp(line, "SO ", ft_strlen("SO "))){
 		data->files_arr[1] = ft_split_space(line, &data->col);
-	else if (!ft_strncmp(line, "WE ", ft_strlen("WE ")))
+		i++;
+		}
+	else if (!ft_strncmp(line, "WE ", ft_strlen("WE "))){
 		data->files_arr[2] = ft_split_space(line, &data->col);
-	else if (!ft_strncmp(line, "EA ", ft_strlen("EA ")))
+		i++;
+		}
+	else if (!ft_strncmp(line, "EA ", ft_strlen("EA "))){
 		data->files_arr[3] = ft_split_space(line, &data->col);
-	else if (!ft_strncmp(line, "F ", ft_strlen("F ")))
+		i++;
+		}
+	else if (!ft_strncmp(line, "F ", ft_strlen("F "))){
 		data->files_arr[4] = ft_split_space(line, &data->col);
-	else if (!ft_strncmp(line, "C ", ft_strlen("C ")))
+		i++;
+		}
+	else if (!ft_strncmp(line, "C ", ft_strlen("C "))){
 		data->files_arr[5] = ft_split_space(line, &data->col);
+		i++;
+		}
 	else if (line[0] == '\0')
 		return (1);
 	else
-	{
-		printf("here2\n");
-		ft_putendl_fd("Error!", 2);
-		exit(1);
-	}
+		ft_free_error_type(&data->col, 4);
+	if (i > 5)
+		ft_free_error_type(&data->col, 4);
 	return (0);
 }
 
@@ -169,20 +178,19 @@ void	ft_get_xpm_files_colors(t_data *data, int fd, t_collector **col)
 	char *line;
 	int	i;
 
-	data->files_arr = malloc(sizeof(char *) * (7));
+	data->files_arr = c_malloc(sizeof(char *) * (7), col);
 	i = 0;
 	while (i < data->number_of_files)
 	{
 		line = gnl(fd, col);
 		if (ft_line_cases(data, line))
 			continue;
-
 		i++;
 	}
 	data->files_arr[i] = NULL;
 
 	for (int i = 0; data->files_arr[i]; i++)
-		printf("ll %s\n", data->files_arr[i]);
+		printf("ll %p %d\n", data->files_arr[i], i);
 	ft_open_xpm(data->files_arr);
 }
 
@@ -229,10 +237,7 @@ void	ft_check_file_name(char *filename, t_collector **col)
 	len = ft_strlen (filename);
 	s = ft_gsubstr(filename, len - 4, len, col);
 	if (ft_strcmp(s, ".cub") != 0)
-	{
 		ft_free_error_type(col, 3);
-	}
-	exit(0);
 }
 
 int	ft_open_file(char *filename, t_collector **col)
@@ -244,7 +249,7 @@ int	ft_open_file(char *filename, t_collector **col)
 	if (fd == -1)
 	{
 		perror("");
-		exit(1);
+		ft_free_error_type(col, 20);
 	}
 	return (fd);
 }

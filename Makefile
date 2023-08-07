@@ -6,13 +6,13 @@
 #    By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 17:25:24 by msamhaou          #+#    #+#              #
-#    Updated: 2023/08/07 15:27:50 by msamhaou         ###   ########.fr        #
+#    Updated: 2023/08/07 15:43:05 by msamhaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Cub3D
 CC = cc
-CFLAGS = #-fsanitize=address
+CFLAGS = -fsanitize=address
 HEADER = cub3d.h
 
 ifeq ($(shell uname), Linux)
