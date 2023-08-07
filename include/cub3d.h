@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 12:10:05 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/07 14:57:36 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,14 @@ typedef	struct s_ray
 	double		angle;
 }	t_ray;
 
+typedef enum s_err
+{
+	MLX,
+	XPM,
+	MAP,
+	CUB
+}	e_err;
+
 typedef struct s_data
 {
 	void		*mlx;
@@ -159,6 +167,8 @@ void	ft_draw_init(t_data *data);
 t_img	*ft_img_init(t_data *data);
 void	ft_update(t_data *data);
 char	**ft_gsplit(char const *s, char c, t_collector **col);
+void	ft_print_err(int type);
+void	ft_free_error_type(t_collector **col, int type);
 
 
 

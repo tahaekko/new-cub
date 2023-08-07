@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 11:39:26 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/07 13:37:15 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,8 +155,6 @@ t_data	*ft_init(char *filename)
 	data = NULL;
 
 	data = c_malloc(sizeof(t_data), &col);
-	if (!data)
-		exit(1);
 	data->col = col;
 	data->number_of_files = 6;
 	ft_nullafy(data);

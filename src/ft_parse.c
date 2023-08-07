@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 12:08:43 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/07 15:06:36 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ int	ft_map_component_find(char c)
 	return (0);
 }
 
+char	*ft_gstrdup(const char *s1, t_collector **col)
+{
+	void	*ptr;
+
+	ptr = c_malloc(ft_strlen(s1) + 1, col);
+	if (!ptr)
+		return (0);
+	ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
+	return (ptr);
+}
+
 char	**ft_map_fill(int fd, int width, int height, t_collector **col)
 {
 	char	**res;
@@ -40,7 +51,7 @@ char	**ft_map_fill(int fd, int width, int height, t_collector **col)
 	}
 	while (line && i < height)
 	{
-		res[i++] = ft_strdup(line);
+		res[i++] = ft_gstrdup(line, col);
 		line = gnl(fd, col);
 	}
 	res[i] = NULL;
@@ -175,10 +186,60 @@ void	ft_get_xpm_files_colors(t_data *data, int fd, t_collector **col)
 	ft_open_xpm(data->files_arr);
 }
 
-int	ft_open(char *filename)
+char	*ft_gsubstr(char const *s, unsigned int start, size_t len, t_collector **col)
+{
+	char	*str;
+
+	if (!s)
+		return (0);
+	if (ft_strlen(s) < start)
+	{
+		str = c_malloc((1 * sizeof(char)), col);
+		*str = '\0';
+		return (str);
+	}
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	str = c_malloc(((len + 1) * sizeof (char)), col);
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, s + start, len + 1);
+	return (str);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if(s1[i] != s2[i])
+			return (1);
+		i++;
+	}
+	return(0);
+}
+
+void	ft_check_file_name(char *filename, t_collector **col)
+{
+	int	len;
+	char *s;
+
+	len = ft_strlen (filename);
+	s = ft_gsubstr(filename, len - 4, len, col);
+	if (ft_strcmp(s, ".cub") != 0)
+	{
+		ft_free_error_type(col, 3);
+	}
+	exit(0);
+}
+
+int	ft_open_file(char *filename, t_collector **col)
 {
 	int	fd;
 
+	ft_check_file_name(filename, col);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
@@ -256,7 +317,7 @@ int	ft_parse(char *filename, t_data *data)
 {
 	int	fd;
 
-	fd = ft_open(filename);
+	fd = ft_open_file(filename, &data->col);
 	ft_get_xpm_files_colors(data, fd, &data->col);
 	ft_get_colors(data, fd);
 	printf("%d\n", data->ciel_color);
