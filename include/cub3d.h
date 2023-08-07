@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 06:44:43 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/07 12:10:05 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <math.h>
 # include <fcntl.h>
 # include "libft.h"
-# include "get_next_line.h"
+# include "gnl.h"
 # define WIDTH 1280
 # define HEIGHT 720
 # define FOV 60
@@ -125,6 +125,7 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*win;
+	t_collector	*col;
 	t_img		*main_img;
 	t_map		*map;
 	t_player	*player;
@@ -157,6 +158,7 @@ void	ft_free_all(t_data *data);
 void	ft_draw_init(t_data *data);
 t_img	*ft_img_init(t_data *data);
 void	ft_update(t_data *data);
+char	**ft_gsplit(char const *s, char c, t_collector **col);
 
 
 

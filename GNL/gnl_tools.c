@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   gnl_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 15:32:28 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/06/26 19:11:05 by msamhaou         ###   ########.fr       */
+/*   Created: 2023/08/04 11:17:04 by msamhaou          #+#    #+#             */
+/*   Updated: 2023/08/07 10:29:11 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "gnl.h"
 
 size_t	ft_linelen(char *str)
 {
@@ -40,7 +40,7 @@ int	ft_isnewline(char *s)
 	return (0);
 }
 
-char	*ft_gstrjoin(char *s1, char *s2)
+char	*ft_gstrjoin(char *s1, char *s2, t_collector **col)
 {
 	char	*str;
 	int		i;
@@ -48,14 +48,14 @@ char	*ft_gstrjoin(char *s1, char *s2)
 
 	if (!s1)
 	{
-		s1 = (char *)malloc(1 * sizeof(char));
+		s1 = (char *)c_malloc(1 * sizeof(char), col);
 		if (!s1)
-			return (NULL);
+			return (ft_free_addr(*col), ft_free_collector(col), NULL);
 		s1[0] = '\0';
 	}
-	str = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	str = c_malloc((sizeof(char)*(ft_strlen(s1) + ft_strlen(s2) + 1)), col);
 	if (!str)
-		return (NULL);
+		return (ft_free_addr(*col), ft_free_collector(col), NULL);
 	i = 0;
 	while (s1[i])
 	{
@@ -66,5 +66,5 @@ char	*ft_gstrjoin(char *s1, char *s2)
 	while (s2[j])
 		str[i++] = s2[j++];
 	str[i] = '\0';
-	return (free(s1), str);
+	return (str);
 }

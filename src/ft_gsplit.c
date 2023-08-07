@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_gsplit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/21 09:58:56 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 11:46:27 by msamhaou         ###   ########.fr       */
+/*   Created: 2023/08/07 12:08:45 by msamhaou          #+#    #+#             */
+/*   Updated: 2023/08/07 12:09:19 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
 static size_t	word_count(const char	*s, char c)
 {
@@ -41,7 +41,7 @@ static void	ft_sne(const char *s, size_t *start, size_t *end, char c)
 		*end += 1;
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_gsplit(char const *s, char c, t_collector **col)
 {
 	char	**split;
 	size_t	start;
@@ -50,7 +50,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (0);
-	split = (char **)malloc((word_count(s, c) + 1) * sizeof (char *));
+	split = (char **)c_malloc((word_count(s, c) + 1) * sizeof (char *), col);
 	if (!split)
 		return (0);
 	i = 0;

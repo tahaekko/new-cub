@@ -6,13 +6,13 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 04:24:53 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/07 12:08:43 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*ft_find_map(int fd);
+char	*ft_find_map(int fd, t_collector **col);
 
 int	ft_map_component_find(char c)
 {
@@ -25,25 +25,23 @@ int	ft_map_component_find(char c)
 	return (0);
 }
 
-char	**ft_map_fill(int fd, int width, int height)
+char	**ft_map_fill(int fd, int width, int height, t_collector **col)
 {
 	char	**res;
 	int		i;
 	char	*line;
 
-	res = malloc(sizeof(char *) * (height + 1));
+	res = c_malloc(sizeof(char *) * (height + 1), col);
 	i = 0;
-	line = get_next_line(fd);
+	line = gnl(fd, col);
 	while (line && line[0] != '1')
 	{
-		free(line);
-		line = get_next_line(fd);
+		line = gnl(fd, col);
 	}
 	while (line && i < height)
 	{
 		res[i++] = ft_strdup(line);
-		free(line);
-		line = get_next_line(fd);
+		line = gnl(fd, col);
 	}
 	res[i] = NULL;
 	return (res);
@@ -58,15 +56,6 @@ int	ft_max(int x, int y)
 	return (y);
 }
 
-void	ft_free_strings(char **s)
-{
-	int	i;
-
-	i = 0 ;
-	while (s[i])
-		free(s[i++]);
-	free(s);
-}
 int	ft_valid_c(char c)
 {
 	if (c != '0' && c!= '1' && c != 'N' \
@@ -84,7 +73,7 @@ int	ft_valid(const char *line)
 }
 
 
-char	*ft_split_space(const char *str)
+char	*ft_split_space(const char *str, t_collector **col)
 {
 	char	*s;
 	char	*tmp;
@@ -101,19 +90,18 @@ char	*ft_split_space(const char *str)
 	i = 0;
 	while (s[i])
 		i++;
-	ret = malloc(sizeof(char) * (i));
-	ft_strlcpy(ret, s, i);
+	ret = c_malloc((sizeof(char) * (i + 1)), col);
+	ft_strlcpy(ret, s, i + 1);
 	return (ret);
 }
 
-int	ft_set_color(char *str)
+int	ft_set_color(char *str, t_collector **col)
 {
 	char	**split;
 	int		res;
 
-	split = ft_split(str, ',');
+	split = ft_gsplit(str, ',', col);
 	res = color_code(ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
-	ft_free_strings(split);
 	return (res);
 }
 
@@ -125,24 +113,22 @@ int	ft_line_cases(t_data *data, char *line)
 		exit(1);
 	}
 	if (!ft_strncmp(line, "NO ", ft_strlen("NO ")))
-		data->files_arr[0] = ft_split_space(line);
+		data->files_arr[0] = ft_split_space(line, &data->col);
 	else if (!ft_strncmp(line, "SO ", ft_strlen("SO ")))
-		data->files_arr[1] = ft_split_space(line);
+		data->files_arr[1] = ft_split_space(line, &data->col);
 	else if (!ft_strncmp(line, "WE ", ft_strlen("WE ")))
-		data->files_arr[2] = ft_split_space(line);
+		data->files_arr[2] = ft_split_space(line, &data->col);
 	else if (!ft_strncmp(line, "EA ", ft_strlen("EA ")))
-		data->files_arr[3] = ft_split_space(line);
+		data->files_arr[3] = ft_split_space(line, &data->col);
 	else if (!ft_strncmp(line, "F ", ft_strlen("F ")))
-		data->files_arr[4] = ft_split_space(line);
+		data->files_arr[4] = ft_split_space(line, &data->col);
 	else if (!ft_strncmp(line, "C ", ft_strlen("C ")))
-		data->files_arr[5] = ft_split_space(line);
-	else if (line[0] == '\n')
-	{
-		free(line);
+		data->files_arr[5] = ft_split_space(line, &data->col);
+	else if (line[0] == '\0')
 		return (1);
-	}
 	else
 	{
+		printf("here2\n");
 		ft_putendl_fd("Error!", 2);
 		exit(1);
 	}
@@ -167,7 +153,7 @@ void	ft_open_xpm(char **files)
 	}
 }
 /*get xpm file and color strings*/
-void	ft_get_xpm_files_colors(t_data *data, int fd)
+void	ft_get_xpm_files_colors(t_data *data, int fd, t_collector **col)
 {
 	char *line;
 	int	i;
@@ -176,16 +162,16 @@ void	ft_get_xpm_files_colors(t_data *data, int fd)
 	i = 0;
 	while (i < data->number_of_files)
 	{
-		line = get_next_line(fd);
+		line = gnl(fd, col);
 		if (ft_line_cases(data, line))
 			continue;
-		free(line);
+
 		i++;
 	}
 	data->files_arr[i] = NULL;
 
 	for (int i = 0; data->files_arr[i]; i++)
-		printf("%s\n", data->files_arr[i]);
+		printf("ll %s\n", data->files_arr[i]);
 	ft_open_xpm(data->files_arr);
 }
 
@@ -203,11 +189,11 @@ int	ft_open(char *filename)
 }
 void	ft_get_colors(t_data *data, int fd)
 {
-	data->floor_color = ft_set_color(data->files_arr[4]);
-	data->ciel_color = ft_set_color(data->files_arr[5]);
+	data->floor_color = ft_set_color(data->files_arr[4], &data->col);
+	data->ciel_color = ft_set_color(data->files_arr[5], &data->col);
 }
 
-void	ft_get_dim(int fd, char *prev_line, t_data *data)
+void	ft_get_dim(int fd, char *prev_line, t_data *data, t_collector **col)
 {
 	char	*line;
 	t_map	*map;
@@ -218,36 +204,36 @@ void	ft_get_dim(int fd, char *prev_line, t_data *data)
 	map->ymap = 0;
 	while (line)
 	{
-		free(line);
-		line = get_next_line(fd);
+
+		line = gnl(fd, col);
 		map->ymap++;
 		if (!line)
 			break;
 		if (!ft_valid((const char *)line))
 		{
 			ft_putendl_fd("Error char", 2);
-			free(line);
+
 			exit(1);
 		}
 		map->xmap = ft_max(map->xmap, ft_strlen(line));
 	}
-	free(line);
+
 }
 
-char	*ft_find_map(int fd)
+char	*ft_find_map(int fd, t_collector **col)
 {
 	char	*line;
 
-	line = get_next_line(fd);
-	while (line[0] == '\n')
+	line = gnl(fd, col);
+	while (line[0] == '\0')
 	{
-		free(line);
-		line = get_next_line(fd);
+		line = gnl(fd, col);
 	}
 	if (line [0] != '1')
 	{
-		free(line);
 		printf("Err\n");
+		// ft_free_addr(*col);
+		// ft_free_collector(col);
 		exit(1);
 	}
 	return (line);
@@ -258,11 +244,11 @@ void	ft_map(t_data *data, char *filename,int fd)
 	char	*line;
 	int		new_fd = 0;
 
-	line = ft_find_map(fd);
-	ft_get_dim(fd, line , data);
+	line = ft_find_map(fd, &data->col);
+	ft_get_dim(fd, line , data, &data->col);
 	close(fd);
 	new_fd = open(filename, O_RDONLY);
-	data->map->map_compo = ft_map_fill(new_fd, data->map->xmap, data->map->ymap);
+	data->map->map_compo = ft_map_fill(new_fd, data->map->xmap, data->map->ymap, &data->col);
 
 }
 
@@ -271,7 +257,7 @@ int	ft_parse(char *filename, t_data *data)
 	int	fd;
 
 	fd = ft_open(filename);
-	ft_get_xpm_files_colors(data, fd);
+	ft_get_xpm_files_colors(data, fd, &data->col);
 	ft_get_colors(data, fd);
 	printf("%d\n", data->ciel_color);
 	ft_map(data, filename, fd);

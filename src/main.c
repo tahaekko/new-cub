@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 10:09:02 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 06:45:16 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/07 12:21:12 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,14 @@ void	foo()
 
 void	ft_free_all(t_data *data)
 {
-	if (data->map)
-		free(data->map);
-	if (data->main_img->addr)
-		free(data->main_img->addr);
-	if (data->main_img)
-		free(data->main_img);
-	if (data->files_arr)
-		ft_free_strings(data->files_arr);
-	if (data->texture)
-		free(data->texture);
-	if (data->player)
-		free(data->player);
-	if (data->ray)
-		free(data->ray);
-	if (data)
-		free(data);
+	ft_free_addr(data->col);
+	ft_free_collector(&data->col);
+	exit(0);
 }
+
 int	ft_exit(t_data * data)
 {
-	exit(0);
+	ft_free_all(data);
 	return(1);
 }
 
@@ -63,6 +51,7 @@ int	ft_hooks(t_data	*data)
 int	main(int ac, char **av)
 {
 	t_data	*data;
+	t_texture *text;
 
 	// atexit(foo);
 	if (!av[1])

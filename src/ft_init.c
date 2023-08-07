@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/30 07:04:34 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/07 11:39:26 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_map	*ft_map_init(t_data *data)
 {
 	t_map	*map;
 
-	map = malloc(sizeof(t_map));
+	map = c_malloc(sizeof(t_map), &data->col);
 	map->xmap = 0;
 	map->ymap = 0;
 	map->off_map = (int)GRID;
@@ -68,7 +68,7 @@ t_player	*ft_init_player(t_data *data)
 {
 	t_player *player;
 
-	player = malloc(sizeof(t_player));
+	player = c_malloc(sizeof(t_player), &data->col);
 	player->height = 0;
 	player->width = 0;
 	player->ypos = ft_get_player_y(data);
@@ -80,32 +80,32 @@ t_player	*ft_init_player(t_data *data)
 	return (player);
 }
 
-t_vertex	*ft_vertex()
+t_vertex	*ft_vertex(t_collector **col)
 {
 	t_vertex *vertex;
 
-	vertex = malloc(sizeof(t_vertex));
+	vertex = c_malloc(sizeof(t_vertex), col);
 	vertex->x = 0;
 	vertex->y = 0;
 	return (vertex);
 }
 
-t_ray	*ft_ray_init()
+t_ray	*ft_ray_init(t_collector **col)
 {
 	t_ray	*ray;
 
-	ray = malloc(sizeof(t_ray));
-	ray->hit_point_h = ft_vertex();
-	ray->hit_point_v = ft_vertex();
+	ray = c_malloc(sizeof(t_ray), col);
+	ray->hit_point_h = ft_vertex(col);
+	ray->hit_point_v = ft_vertex(col);
 	ray->angle = 0;
 	return (ray);
 }
 
-char	**ft_chars_alloc(int num)
+char	**ft_chars_alloc(int num, t_collector **col)
 {
 	char	**files;
 
-	files = malloc(sizeof(char *) * (num + 1));
+	files = c_malloc(sizeof(char *) * (num + 1), col);
 	return (files);
 }
 void	ft_nullafy(t_data *data)
@@ -116,19 +116,6 @@ void	ft_nullafy(t_data *data)
 	data->map = NULL;
 	data->player = NULL;
 	data->ray = NULL;
-}
-
-void	ft_leaks_add(t_data *data)
-{
-	printf("file %p\n", data->files_arr);
-	printf("texture %p\n", data->texture);
-	printf("img %p\n", data->main_img);
-	printf("map %p\n", data->map);
-	printf("player %p\n", data->player);
-	printf("ray %p\n", data->ray);
-	printf("mlx %p\n", data->mlx);
-	printf("win %p\n", data->win);
-
 }
 
 t_img	ft_get_texture_img(t_data *data, char *file)
@@ -151,7 +138,7 @@ t_img	*ft_init_textures(t_data *data)
 	int i;
 	t_img	*texture;
 
-	texture = malloc(sizeof(t_img) * 4);
+	texture = c_malloc(sizeof(t_img) * 4, &data->col);
 	i = 0;
 	while (i < 4)
 	{
@@ -164,22 +151,23 @@ t_img	*ft_init_textures(t_data *data)
 t_data	*ft_init(char *filename)
 {
 	t_data *data;
-
+	t_collector *col = NULL;
 	data = NULL;
-	data = malloc(sizeof(t_data));
+
+	data = c_malloc(sizeof(t_data), &col);
 	if (!data)
 		exit(1);
+	data->col = col;
 	data->number_of_files = 6;
 	ft_nullafy(data);
-	data->files_arr = ft_chars_alloc(data->number_of_files);
+	data->files_arr = ft_chars_alloc(data->number_of_files, &col);
 	data->map = ft_map_init(data);
 	ft_parse(filename, data);
 	ft_mlx_init(data);
 	data->texture = ft_init_textures(data);
 	data->main_img = ft_img_init(data);
 	data->player = ft_init_player(data);
-	data->ray = ft_ray_init();
-	ft_leaks_add(data);
+	data->ray = ft_ray_init(&col);
 	ft_draw_init(data);
 	return (data);
 }
