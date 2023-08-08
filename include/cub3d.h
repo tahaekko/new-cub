@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 13:25:41 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:51:10 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,10 +181,18 @@ void	ft_free_error_type(t_collector **col, int type);
 
 char	*ft_gsubstr(char const *s, unsigned int start, size_t len, t_collector **col);
 int		ft_gatoi(const char *str, t_collector **col);
-
+/*maplist*/
 t_map_row	*ft_new_row(char *addr, t_collector **col);
 t_map_row	*ft_last_row(t_map_row *lst);
-void	ft_row_add_back(t_map_row **list, t_map_row *new_node);
+void		ft_row_add_back(t_map_row **list, t_map_row *new_node);
+void	ft_link_back(t_map_row *row);
+
+/*mapcheck*/
+char		*ft_find_map(int fd, t_collector **col);
+t_map_row	*ft_get_map_compo(char *line, int fd, t_collector **col);
+int			ft_check_map_compo(t_map_row *row);
+int			ft_check_map_lines(t_map_row *row);
+bool		ft_one_of_chr(char c);
 
 
 /****************/

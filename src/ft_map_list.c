@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:52:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 12:57:16 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 18:45:23 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,15 @@ void	ft_row_add_back(t_map_row **list, t_map_row *new_node)
 	}
 	last = ft_last_row(*list);
 	last->next = new_node;
+}
+
+void	ft_link_back(t_map_row *row)
+{
+	t_map_row	*tmp;
+
+	while (row->next)
+	{
+		row->next->back = row;
+		row = row->next;
+	}
 }
