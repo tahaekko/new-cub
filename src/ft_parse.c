@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 14:56:10 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 15:41:24 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,8 +277,11 @@ char	*ft_find_map(int fd, t_collector **col)
 		line = gnl(fd, col);
 	if (!line)
 		ft_free_error_type(col, 4);
-	if (line[0] != '1')
+	if (!ft_strchr(line,'1'))
+	{
 		ft_free_error_type(col, 4);
+	}
+
 	return (line);
 }
 
@@ -302,7 +305,7 @@ int	ft_check_valid_map_characthers(const char *str, int *pos)
 	s = (char *)str;
 	while (*s)
 	{
-		if (*s != '0' && *s != '1' && *s != 'N' && *s != 'S' && *s != 'W' && *s != 'E')
+		if (*s != '0' && *s != '1' && *s != 'N' && *s != 'S' && *s != 'W' && *s != 'E' && *s != ' ')
 			return (-1);
 		if (*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E')
 			(*pos)++;
@@ -327,7 +330,24 @@ int	ft_map_strchr(const char *str)
 	return (0);
 }
 
-int	ft_check_zero_surround(t_map_row *row)
+int	ft_check_zero_surround(char	*row, int back, int	next)
+{
+	int	i;
+
+	i = 1;
+	while (row[i])
+	{
+		if (row[i] == '0')
+		{
+			if (i > back || i > next)
+				return (-1);
+			
+		}
+		i++;
+	}
+}
+
+int	ft_check_map_lines(t_map_row *row)
 {
 	int	len;
 	int	len_back;
@@ -350,7 +370,11 @@ int	ft_check_zero_surround(t_map_row *row)
 		if (row->next != NULL)
 			len_next = ft_strlen(row->next->row);
 		if (row->back != NULL)
+		{
 			len_back = ft_strlen(row->back->row);
+			ft_check_zero_surround(row->row, len_back, len_next);
+		}
+
 		row = row->next;
 	}
 }
@@ -395,7 +419,7 @@ void	ft_map(t_data *data, char *filename,int fd)
 	if (ft_check_map_compo(data->map->map_compo) == -1)
 		ft_free_error_type(&data->col, 4);
 	ft_link_back(data->map->map_compo);
-	if (ft_check_zero_surround(data->map->map_compo) == -1)
+	if (ft_check_map_lines(data->map->map_compo) == -1)
 		ft_free_error_type(&data->col, 4);
 }
 
