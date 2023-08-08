@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 16:43:30 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 11:39:26 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,6 @@ char	*ft_gstrdup(const char *s1, t_collector **col)
 	ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
 	return (ptr);
 }
-
-char	**ft_map_fill(int fd, int width, int height, t_collector **col)
-{
-	char	**res;
-	int		i;
-	char	*line;
-
-	res = c_malloc(sizeof(char *) * (height + 1), col);
-	i = 0;
-	line = gnl(fd, col);
-	while (line && line[0] != '1')
-	{
-		line = gnl(fd, col);
-	}
-	while (line && i < height)
-	{
-		res[i++] = ft_gstrdup(line, col);
-		line = gnl(fd, col);
-	}
-	res[i] = NULL;
-	return (res);
-}
-
-
 
 int	ft_max(int x, int y)
 {
@@ -106,13 +82,41 @@ char	*ft_split_space(const char *str, t_collector **col)
 	return (ret);
 }
 
+int	ft_kamas_count(const char *str)
+{
+	char	*s;
+	int		count;
+
+	s = (char *)str;
+	count = 0;
+	while (*s)
+	{
+		if (*s == ',')
+			count++;
+		if (*(s++) == '-')
+			return (-1);
+	}
+	return (count);
+}
+
+void	ft_set_color_check(char *str, t_collector **col)
+{
+	int	i;
+	int	check;
+
+	check = ft_kamas_count(str);
+	if (check > 2 || check == -1)
+		ft_free_error_type(col, 5);
+}
+
 int	ft_set_color(char *str, t_collector **col)
 {
 	char	**split;
 	int		res;
 
+	ft_set_color_check(str, col);
 	split = ft_gsplit(str, ',', col);
-	res = color_code(ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
+	res = color_code(ft_gatoi(split[0], col), ft_gatoi(split[1], col), ft_gatoi(split[2], col));
 	return (res);
 }
 
@@ -203,27 +207,6 @@ void	ft_get_xpm_files_colors(t_data *data, int fd, t_collector **col)
 	ft_open_xpm(data->files_arr);
 }
 
-char	*ft_gsubstr(char const *s, unsigned int start, size_t len, t_collector **col)
-{
-	char	*str;
-
-	if (!s)
-		return (0);
-	if (ft_strlen(s) < start)
-	{
-		str = c_malloc((1 * sizeof(char)), col);
-		*str = '\0';
-		return (str);
-	}
-	if (ft_strlen(s + start) < len)
-		len = ft_strlen(s + start);
-	str = c_malloc(((len + 1) * sizeof (char)), col);
-	if (!str)
-		return (NULL);
-	ft_strlcpy(str, s + start, len + 1);
-	return (str);
-}
-
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	int	i;
@@ -268,63 +251,74 @@ void	ft_get_colors(t_data *data, int fd)
 	data->ciel_color = ft_set_color(data->files_arr[5], &data->col);
 }
 
-void	ft_get_dim(int fd, char *prev_line, t_data *data, t_collector **col)
-{
-	char	*line;
-	t_map	*map;
-
-	map = data->map;
-	line = prev_line;
-	map->xmap = ft_strlen(line);
-	map->ymap = 0;
-	while (line)
-	{
-
-		line = gnl(fd, col);
-		map->ymap++;
-		if (!line)
-			break;
-		if (!ft_valid((const char *)line))
-		{
-			ft_putendl_fd("Error char", 2);
-
-			exit(1);
-		}
-		map->xmap = ft_max(map->xmap, ft_strlen(line));
-	}
-
-}
 
 char	*ft_find_map(int fd, t_collector **col)
 {
 	char	*line;
 
 	line = gnl(fd, col);
-	while (line[0] == '\0')
+	while (line && line[0] == '\0')
+		line = gnl(fd, col);
+	if (!line)
+		ft_free_error_type(col, 4);
+	if (line[0] != '1')
+		ft_free_error_type(col, 4);
+	return (line);
+}
+
+t_map_row	*ft_get_map_compo(char *line, int fd, t_collector **col)
+{
+	t_map_row	*row;
+
+	row = NULL;
+	while(line)
 	{
+		ft_row_add_back(&row, ft_new_row(line, col));
 		line = gnl(fd, col);
 	}
-	if (line [0] != '1')
+	return (row);
+}
+
+int	ft_check_valid_map_characthers(const char *str, int *pos)
+{
+	char	*s;
+
+	s = (char *)str;
+	while (*s)
 	{
-		printf("Err\n");
-		// ft_free_addr(*col);
-		// ft_free_collector(col);
-		exit(1);
+		if (*s != '0' && *s != '1' && *s != 'N' && *s != 'S' && *s != 'W' && *s != 'E')
+			return (-1);
+		if (*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E')
+			(*pos)++;
+		if (*pos > 1)
+			return (-1);
+		s++;
 	}
-	return (line);
+	return (0);
+}
+
+int	ft_check_map_compo(t_map_row *row)
+{
+	int	count;
+
+	count = 0;
+	while (row)
+	{
+		if (ft_check_valid_map_characthers(row->row, &count) == -1)
+			return (-1);
+		row = row->next;
+	}
+	return (0);
 }
 
 void	ft_map(t_data *data, char *filename,int fd)
 {
 	char	*line;
-	int		new_fd = 0;
 
 	line = ft_find_map(fd, &data->col);
-	ft_get_dim(fd, line , data, &data->col);
-	close(fd);
-	new_fd = open(filename, O_RDONLY);
-	data->map->map_compo = ft_map_fill(new_fd, data->map->xmap, data->map->ymap, &data->col);
-
+	data->map->map_compo =  ft_get_map_compo(line, fd, &data->col);
+	if (ft_check_map_compo(data->map->map_compo) == -1)
+		ft_free_error_type(&data->col, 4);
 }
 
 int	ft_parse(char *filename, t_data *data)
@@ -334,7 +328,6 @@ int	ft_parse(char *filename, t_data *data)
 	fd = ft_open_file(filename, &data->col);
 	ft_get_xpm_files_colors(data, fd, &data->col);
 	ft_get_colors(data, fd);
-	printf("%d\n", data->ciel_color);
 	ft_map(data, filename, fd);
 	return (0);
 }

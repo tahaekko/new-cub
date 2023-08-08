@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 12:08:45 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 12:09:19 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 09:37:41 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	**ft_gsplit(char const *s, char c, t_collector **col)
 	while (i < word_count(s, c))
 	{
 		ft_sne(s, &start, &end, c);
-		split[i] = ft_substr(s, start, end - start);
+		split[i] = ft_gsubstr(s, start, end - start, col);
 		if (!split[i])
 		{
 			return (NULL);

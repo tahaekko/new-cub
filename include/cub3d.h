@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 16:15:41 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 11:14:19 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@
 
 #endif
 
+typedef struct s_map_row
+{
+	char			*row;
+	struct s_map_row	*next;
+}	t_map_row;
 typedef struct s_file
 {
 	char	*north;
@@ -111,7 +116,7 @@ typedef struct s_map
 	int	xmap;
 	int	ymap;
 	int off_map;
-	char	**map_compo;
+	t_map_row	*map_compo;
 }	t_map;
 
 typedef	struct s_ray
@@ -127,7 +132,8 @@ typedef enum s_err
 	XPM,
 	MAP,
 	CUB,
-	VALID
+	VALID,
+	COLOR_SET
 }	e_err;
 
 typedef struct s_data
@@ -171,6 +177,12 @@ char	**ft_gsplit(char const *s, char c, t_collector **col);
 void	ft_print_err(int type);
 void	ft_free_error_type(t_collector **col, int type);
 
+char	*ft_gsubstr(char const *s, unsigned int start, size_t len, t_collector **col);
+int		ft_gatoi(const char *str, t_collector **col);
+
+t_map_row	*ft_new_row(char *addr, t_collector **col);
+t_map_row	*ft_last_row(t_map_row *lst);
+void	ft_row_add_back(t_map_row **list, t_map_row *new_node);
 
 
 /****************/

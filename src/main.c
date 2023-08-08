@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 10:09:02 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 15:43:09 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 11:40:07 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int ac, char **av)
 	t_data	*data;
 	t_texture *text;
 
-	// atexit(foo);
+	atexit(foo);
 	if (!av[1])
 		exit(1);
 	data = ft_init(av[1]);

@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 13:43:54 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 16:17:57 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 09:26:20 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_print_err(int type)
 		ft_putendl_fd("MAP FILE FAILED !", 2);
 	if (err == VALID)
 		ft_putendl_fd("INVALID MAP FILE !", 2);
+	if (err == COLOR_SET)
+		ft_putendl_fd("INVALID COLOR SET !", 2);
 }
 
 void	ft_free_error_type(t_collector **col, int type)
