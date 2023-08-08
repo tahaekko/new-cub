@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 10:52:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 11:10:25 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 12:57:16 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_map_row	*ft_new_row(char *addr, t_collector **col)
 	node = c_malloc(sizeof(t_map_row), col);
 	node->row = addr;
 	node->next = NULL;
+	node->back = NULL;
 	return (node);
 }
 

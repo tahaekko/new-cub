@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 11:16:37 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 14:17:12 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,7 @@ t_data	*ft_init(char *filename)
 	data->files_arr = ft_chars_alloc(data->number_of_files, &col);
 	data->map = ft_map_init(data);
 	ft_parse(filename, data);
-	exit(0);
+	// exit(0);
 	ft_mlx_init(data);
 	data->texture = ft_init_textures(data);
 	data->main_img = ft_img_init(data);

@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 11:14:19 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/08 13:25:41 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <math.h>
 # include <fcntl.h>
+#include <stdbool.h>
 # include "libft.h"
 # include "gnl.h"
 # define WIDTH 1280
@@ -64,6 +65,7 @@ typedef struct s_map_row
 {
 	char			*row;
 	struct s_map_row	*next;
+	struct s_map_row	*back;
 }	t_map_row;
 typedef struct s_file
 {
