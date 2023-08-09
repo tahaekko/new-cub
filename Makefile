@@ -6,7 +6,7 @@
 #    By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 17:25:24 by msamhaou          #+#    #+#              #
-#    Updated: 2023/08/08 18:46:57 by msamhaou         ###   ########.fr        #
+#    Updated: 2023/08/09 14:53:28 by msamhaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ else
 	MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit -L /Users/msamhaou/MLX42/build
 	MLX_DIR =
 	MLX_LINK =
-	MLX_INC = -I /usr/local/include -I /Users/msamhaou/MLX42/include
+	MLX_INC = -I /usr/local/include -I /Users/msamhaou/MLX42/include/MLX42
 endif
 
 

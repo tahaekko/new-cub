@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 11:17:51 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:31:40 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_draw_init(t_data *data)
 
 void	ft_update(t_data *data)
 {
-	mlx_destroy_image(data->mlx, data->main_img->img_ptr);
+	// mlx_destroy_image(data->mlx, data->main_img->img_ptr);
 	data->main_img = ft_img_init(data);
 	// ft_draw_map(data);
 	// ft_draw_player();

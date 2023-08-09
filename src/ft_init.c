@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 14:17:12 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:34:55 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void ft_mlx_init(t_data *data)
 {
-	data->mlx = mlx_init();
+	data->mlx = mlx_init(WIDTH, HEIGHT, "ZEB!", true);
 	if (data->mlx == NULL)
-		exit(1);
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "ZEB!");
+		ft_free_error_type(&data->col, 0);
 }
 
 t_img	*ft_img_init(t_data *data)
@@ -128,8 +127,8 @@ t_img	ft_get_texture_img(t_data *data, char *file)
 	x = 0;
 	y = 0;
 	// texture = malloc(sizeof(t_img));
-	p = mlx_xpm_file_to_image(data->mlx, file, &x, &y);
-	texture.addr = mlx_get_data_addr(p, &texture.bpp, &texture.line, &texture.endian);
+	// p = mlx_xpm_file_to_image(data->mlx, file, &x, &y);
+	// texture.addr = mlx_get_data_addr(p, &texture.bpp, &texture.line, &texture.endian);
 	return (texture);
 }
 
@@ -161,7 +160,6 @@ t_data	*ft_init(char *filename)
 	data->files_arr = ft_chars_alloc(data->number_of_files, &col);
 	data->map = ft_map_init(data);
 	ft_parse(filename, data);
-	// exit(0);
 	ft_mlx_init(data);
 	data->texture = ft_init_textures(data);
 	data->main_img = ft_img_init(data);

@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:44:37 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/07/24 13:44:54 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:27:34 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ t_img	*ft_img_alloc()
 void	ft_set_img(t_img *img, int width, int height,t_data *data)
 {
 	img->img_ptr = mlx_new_image(data->mlx, width, height);
-	img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line, &img->endian);
+	// img->addr = mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line, &img->endian);
 }

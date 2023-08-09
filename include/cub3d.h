@@ -6,13 +6,13 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 18:54:51 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:52:58 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# include <mlx.h>
+# include "MLX42.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
