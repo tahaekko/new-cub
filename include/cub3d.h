@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 14:52:58 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:08:21 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ typedef enum s_err
 
 typedef struct s_data
 {
-	void		*mlx;
+	mlx_t		*mlx;
 	void		*win;
 	t_collector	*col;
 	t_img		*main_img;

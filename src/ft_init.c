@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 15:34:55 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:44:58 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,21 +150,24 @@ t_img	*ft_init_textures(t_data *data)
 t_data	*ft_init(char *filename)
 {
 	t_data *data;
-	t_collector *col = NULL;
+	t_collector **col = malloc(sizeof(t_collector *));
 	data = NULL;
 
-	data = c_malloc(sizeof(t_data), &col);
-	data->col = col;
+	*col = NULL;
+	data = c_malloc(sizeof(t_data), col);
+	printf("HEAD1 %p\n", *col);
+	// exit(0);
+	data->col = *col;
 	data->number_of_files = 6;
 	ft_nullafy(data);
-	data->files_arr = ft_chars_alloc(data->number_of_files, &col);
+	data->files_arr = ft_chars_alloc(data->number_of_files, &data->col);
 	data->map = ft_map_init(data);
 	ft_parse(filename, data);
 	ft_mlx_init(data);
 	data->texture = ft_init_textures(data);
 	data->main_img = ft_img_init(data);
 	data->player = ft_init_player(data);
-	data->ray = ft_ray_init(&col);
+	data->ray = ft_ray_init(&data->col);
 	ft_draw_init(data);
 	return (data);
 }

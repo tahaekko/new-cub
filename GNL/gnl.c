@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 11:19:19 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 12:00:59 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 18:47:00 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,6 @@ static char	*ft_read(char *readed, int fd, t_collector **col)
 	int		rdb;
 	static int i;
 	buff = c_malloc(sizeof(char) * (BUFFER_SIZE + 1), col);
-	if (!buff)
-	{
-		ft_free_addr(*col);
-		ft_free_collector(col);
-		return (NULL);
-	}
 	rdb = 1;
 	while (rdb > 0 && !ft_isnewline(readed))
 	{

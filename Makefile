@@ -6,7 +6,7 @@
 #    By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 17:25:24 by msamhaou          #+#    #+#              #
-#    Updated: 2023/08/09 14:53:28 by msamhaou         ###   ########.fr        #
+#    Updated: 2023/08/09 17:03:52 by msamhaou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ ifeq ($(shell uname), Linux)
 	MLX_LINK = -L/usr/lib/
 	MLX_INC = -I/usr/include
 else
-	MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit -L /Users/msamhaou/MLX42/build
+	MLX_FLAGS =  /Users/msamhaou/MLX42/build/libmlx42.a -lmlx -framework OpenGL -framework AppKit -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 	MLX_DIR =
 	MLX_LINK =
 	MLX_INC = -I /usr/local/include -I /Users/msamhaou/MLX42/include/MLX42

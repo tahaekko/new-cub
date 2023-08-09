@@ -5,9 +5,9 @@ WE ./textures/deepslate_diamond_ore.xpm
 EA ./textures/deepslate_emerald_ore.xpm
 
 
-F    1, +15,20
+F    1, 15,20
 C 0,0,20
 
-11111111111
+111111111111
 1010S1111101111
 111111111111

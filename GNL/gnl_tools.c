@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 11:17:04 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/07 10:29:11 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 17:29:28 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,9 @@ char	*ft_gstrjoin(char *s1, char *s2, t_collector **col)
 	if (!s1)
 	{
 		s1 = (char *)c_malloc(1 * sizeof(char), col);
-		if (!s1)
-			return (ft_free_addr(*col), ft_free_collector(col), NULL);
 		s1[0] = '\0';
 	}
 	str = c_malloc((sizeof(char)*(ft_strlen(s1) + ft_strlen(s2) + 1)), col);
-	if (!str)
-		return (ft_free_addr(*col), ft_free_collector(col), NULL);
 	i = 0;
 	while (s1[i])
 	{
