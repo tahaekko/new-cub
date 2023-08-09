@@ -6,13 +6,11 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 18:51:28 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:48:13 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
 
 int	ft_map_component_find(char c)
 {
@@ -261,17 +259,6 @@ void	ft_get_colors(t_data *data, int fd)
 	data->floor_color = ft_set_color(data->files_arr[4], &data->col);
 	data->ciel_color = ft_set_color(data->files_arr[5], &data->col);
 }
-
-
-
-
-
-
-
-
-
-
-
 
 void	ft_map(t_data *data, char *filename,int fd)
 {

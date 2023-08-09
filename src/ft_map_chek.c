@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:38:32 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/08 18:51:49 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 14:22:37 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,24 @@ bool	ft_one_of_chr(char c)
 	return(c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == '0');
 }
 
-int	ft_check_zero_surround(char	*row, int back, int	next)
+int	ft_check_zero_surround(t_map_row	*row, int back, int	next)
 {
 	int	i;
 
 	i = 1;
-	while (row[i])
+	while (row->row[i])
 	{
-		if (row[i] == '0')
+		if (ft_one_of_chr(row->row[i]))
+		{
 			if (i > back || i > next)
 				return (-1);
+			if (row->next->row[i] == ' ' || row->back->row[i] == ' ' ||\
+				row->row[i + 1] == ' ' || row->row[i + 1] == '\0' ||\
+				row->row[i - 1] == ' ')
+				{
+					return (-1);
+				}
+		}
 		i++;
 	}
 }
@@ -137,9 +145,10 @@ int	ft_check_map_lines(t_map_row *row)
 		if (row->back != NULL)
 		{
 			len_back = ft_strlen(row->back->row);
-			ft_check_zero_surround(row->row, len_back, len_next);
 		}
-
+		if (row->back != NULL && row->next != NULL)
+			if (ft_check_zero_surround(row, len_back, len_next) == -1)
+				return (-1);
 		row = row->next;
 	}
 }
