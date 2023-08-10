@@ -6,7 +6,7 @@
 /*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 17:44:43 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 18:51:41 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:03:59 by msamhaou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	ft_free_addr(t_collector *list)
 	t_collector	*head;
 
 	printf("point2 %p\n", (list));
-	// head = list;
-	while (list != NULL)
+	head = list;
+	while (head != NULL)
 	{
-		free((list)->addr);
-		list = (list)->next;
+		free((head)->addr);
+		head = (head)->next;
 	}
 	// list = head;
 }
@@ -72,7 +72,6 @@ void	ft_collector_add_back(t_collector **list, t_collector *new_node)
 		*list = new_node;
 		return ;
 	}
-	printf("lol %p\n", *list);
 	last = ft_lastlst_collector(*list);
 	last->next = new_node;
 }
@@ -87,9 +86,7 @@ void	*c_malloc(size_t size, t_collector **list)
 	if (!ret)
 		ft_free_all_malloc_err(list);
 	new_col = ft_new_collector(ret, list);
-	printf("HEAD1 %p\n", new_col);
 	ft_collector_add_back(list, new_col);
-	printf("HEAD1 %p\n", new_col);
 	return (ret);
 }
 
