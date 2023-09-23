@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_chek.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/08 18:38:32 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 14:22:37 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/09/23 04:22:46 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,23 @@ bool	ft_one_of_chr(char c)
 {
 	return(c == 'N' || c == 'S' || c == 'W' || c == 'E' || c == '0');
 }
+bool	ft_is_orientation_chr(char c)
+{
+	return(c == 'N' || c == 'S' || c == 'W' || c == 'E');
+}
+char	ft_orientation_strchr(const char *str)
+{
+	char	*s;
+
+	s = (char *)str;
+	while (*s)
+	{
+		if (ft_is_orientation_chr(*s))
+			return (*s);
+	}
+	return (0);
+}
+
 
 int	ft_check_zero_surround(t_map_row	*row, int back, int	next)
 {
@@ -39,7 +56,7 @@ int	ft_check_zero_surround(t_map_row	*row, int back, int	next)
 	}
 }
 
-int	ft_check_valid_map_characthers(const char *str, int *pos)
+int	ft_check_valid_map_characthers(t_data *data, const char *str, int *pos)
 {
 	char	*s;
 
@@ -49,7 +66,10 @@ int	ft_check_valid_map_characthers(const char *str, int *pos)
 		if (*s != '0' && *s != '1' && *s != 'N' && *s != 'S' && *s != 'W' && *s != 'E' && *s != ' ')
 			return (-1);
 		if (*s == 'N' || *s == 'S' || *s == 'W' || *s == 'E')
+		{
+			data->orient_identifier = *s;
 			(*pos)++;
+		}
 		if (*pos > 1)
 			return (-1);
 		s++;
@@ -101,7 +121,7 @@ t_map_row	*ft_get_map_compo(char *line, int fd, t_collector **col)
 	return (row);
 }
 
-int	ft_check_map_compo(t_map_row *row)
+int	ft_check_map_compo(t_data *data, t_map_row *row)
 {
 	int	count;
 	int	i;
@@ -110,7 +130,7 @@ int	ft_check_map_compo(t_map_row *row)
 	i = 0;
 	while (row)
 	{
-		if (ft_check_valid_map_characthers(row->row, &count) == -1)
+		if (ft_check_valid_map_characthers(data, row->row, &count) == -1)
 			return (-1);
 		if (row->row[0] != '\0')
 			i++;
@@ -120,6 +140,7 @@ int	ft_check_map_compo(t_map_row *row)
 		return (-1);
 	return (0);
 }
+
 int	ft_check_map_lines(t_map_row *row)
 {
 	int	len;

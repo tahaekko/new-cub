@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/23 03:26:17 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/23 04:23:29 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,35 @@ t_map	*ft_map_init(t_data *data)
 	map->map_compo = NULL;
 	return (map);
 }
-// int	ft_get_player_y(t_data *data)
-// {
-// 	int	y;
+int	ft_get_player_y(t_data *data)
+{
+	int	y;
 
-// 	y = 0;
-// 	while (data->map->map_compo[y])
-// 	{
-// 		if (ft_strchr(data->map->map_compo[y], 'N'))
-// 			return(y);
-// 		y++;
-// 	}
-// 	return (0);
-// }
+	y = 0;
+	while (data->map->map_compo)
+	{
+		if (ft_strchr(data->map->map_compo->row, data->orient_identifier))
+			return(y);
+		data->map->map_compo = data->map->map_compo->next;
+		y++;
+	}
+	return (0);
+}
 
-// int	ft_get_player_x(t_data *data, int ypos)
-// {
-// 	int	x;
+int	ft_get_player_x(t_data *data, int ypos)
+{
+	int	x;
 
-// 	x = 0;
-// 	while (data->map->map_compo[ypos][x] != 'N')
-// 		x++;
-// 	return (x);
-// }
+	x = 0;
+	while (data->map->map_compo && ypos--)
+	{
+		x = 0;
+		while (data->map->map_compo->row[x] != data->orient_identifier)
+			x++;
+		data->map->map_compo = data->map->map_compo->next;
+	}
+	return (x);
+}
 
 t_player	*ft_init_player(t_data *data)
 {
@@ -71,9 +77,10 @@ t_player	*ft_init_player(t_data *data)
 	player = c_malloc(sizeof(t_player), &data->col);
 	player->height = 0;
 	player->width = 0;
-	// player->ypos = ft_get_player_y(data);
-	// player->xpos = ft_get_player_x(data, player->ypos);
-	("%f\n", player->xpos);
+	player->ypos = ft_get_player_y(data);
+	player->xpos = ft_get_player_x(data, player->ypos);
+	printf("%f\n", player->ypos);
+	printf("%f\n", player->xpos);
 	player->xrot = 0;
 	player->yrot = 0;
 	player->angle = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 13:48:13 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/09/23 04:20:48 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ void	ft_map(t_data *data, char *filename,int fd)
 
 	line = ft_find_map(fd, &data->col);
 	data->map->map_compo =  ft_get_map_compo(line, fd, &data->col);
-	if (ft_check_map_compo(data->map->map_compo) == -1)
+	if (ft_check_map_compo(data, data->map->map_compo) == -1)
 		ft_free_error_type(&data->col, 4);
 	ft_link_back(data->map->map_compo);
 	if (ft_check_map_lines(data->map->map_compo) == -1)

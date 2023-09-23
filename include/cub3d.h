@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/23 03:17:22 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/23 04:21:12 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*win;
+	char		orient_identifier;
 	t_collector	*col;
 	t_img		*main_img;
 	t_map		*map;
@@ -190,10 +191,13 @@ void	ft_link_back(t_map_row *row);
 /*********mapcheck*********/
 char		*ft_find_map(int fd, t_collector **col);
 t_map_row	*ft_get_map_compo(char *line, int fd, t_collector **col);
-int			ft_check_map_compo(t_map_row *row);
+int			ft_check_map_compo(t_data *data, t_map_row *row);
 int			ft_check_map_lines(t_map_row *row);
 bool		ft_one_of_chr(char c);
 
 
 /****************/
+
+char	ft_orientation_strchr(const char *str);
+
 #endif
