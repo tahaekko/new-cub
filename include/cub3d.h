@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/23 04:21:12 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/23 17:07:23 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct s_map
 	int	ymap;
 	int off_map;
 	t_map_row	*map_compo;
+	char		**map_arr;
 }	t_map;
 
 typedef	struct s_ray
@@ -152,7 +153,7 @@ typedef struct s_data
 	int			floor_color;
 	int			ciel_color;
 	char		**files_arr;
-	t_img		*texture;
+	t_img		*texture; // pointer to 4 * t_img
 }	t_data;
 
 

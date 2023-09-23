@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/23 04:23:29 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/23 17:24:21 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,19 +125,17 @@ void	ft_nullafy(t_data *data)
 	data->ray = NULL;
 }
 
-t_img	ft_get_texture_img(t_data *data, char *file)
+t_img	ft_get_texture_img(t_data *data, t_img *texture, char *file)
 {
 	int	x;
 	int y;
 	void	*p;
-	t_img	texture;
 
 	x = 0;
 	y = 0;
-	// texture = malloc(sizeof(t_img));
-	// p = mlx_xpm_file_to_image(data->mlx, file, &x, &y);
-	// texture.addr = mlx_get_data_addr(p, &texture.bpp, &texture.line, &texture.endian);
-	return (texture);
+	p = mlx_xpm_file_to_image(data->mlx, file, &x, &y);
+	texture->addr = mlx_get_data_addr(p, &texture->bpp, &texture->line, &texture->endian);
+	return (*texture);
 }
 
 t_img	*ft_init_textures(t_data *data)
@@ -149,9 +147,10 @@ t_img	*ft_init_textures(t_data *data)
 	i = 0;
 	while (i < 4)
 	{
-		texture[i] = ft_get_texture_img(data, data->files_arr[i]);
+		texture[i] = ft_get_texture_img(data, &texture[i], data->files_arr[i]);
 		i++;
 	}
+	printf("%c\n", texture[0].addr[0]);
 	return (texture);
 }
 
@@ -176,6 +175,7 @@ t_data	*ft_init(char *filename)
 	data->main_img = ft_img_init(data);
 	data->player = ft_init_player(data);
 	data->ray = ft_ray_init(&data->col);
+	printf("this %x\n", *((int *)data->texture[1].addr + 1));
 	ft_draw_init(data);
 	return (data);
 }

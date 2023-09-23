@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/23 04:20:48 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/23 16:48:31 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	ft_map_component_find(char c)
 
 char	*ft_gstrdup(const char *s1, t_collector **col)
 {
-	void	*ptr;
+	char	*ptr;
 
-	ptr = c_malloc(ft_strlen(s1) + 1, col);
+	ptr = (char *)c_malloc(sizeof(char) * (ft_strlen(s1) + 1), col);
 	if (!ptr)
 		return (0);
 	ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
@@ -260,6 +260,37 @@ void	ft_get_colors(t_data *data, int fd)
 	data->ciel_color = ft_set_color(data->files_arr[5], &data->col);
 }
 
+int	ft_row_count(const t_map_row *row)
+{
+	t_map_row	*r;
+	int			i;
+
+	i = 0;
+	r = (t_map_row *)row;
+	while (r)
+	{
+		r = r->next;
+		i++;
+	}
+	return (i);
+}
+
+void	ft_set_map_arr(t_data *data)
+{
+	t_map_row	*row;
+	int			i;
+
+	row = data->map->map_compo;
+	data->map->map_arr = (char **)c_malloc(sizeof(char *)* (ft_row_count(row) + 1), &data->col);
+	i = 0;
+	while (row)
+	{
+		data->map->map_arr[i++] = ft_gstrdup(row->row, &data->col);
+		row = row->next;
+	}
+	data->map->map_arr[i] = NULL;
+}
+
 void	ft_map(t_data *data, char *filename,int fd)
 {
 	char	*line;
@@ -271,6 +302,7 @@ void	ft_map(t_data *data, char *filename,int fd)
 	ft_link_back(data->map->map_compo);
 	if (ft_check_map_lines(data->map->map_compo) == -1)
 		ft_free_error_type(&data->col, 4);
+	ft_set_map_arr(data);
 }
 
 int	ft_parse(char *filename, t_data *data)
