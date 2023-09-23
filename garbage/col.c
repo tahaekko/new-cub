@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   col.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 17:44:43 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 19:03:59 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/09/23 03:26:13 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ void	ft_free_collector(t_collector **node)
 	t_collector	*tmp;
 
 	tmp = NULL;
-	printf("HEAD2 %p\n", *node);
+	("HEAD2 %p\n", *node);
 	while (*node)
 	{
 		tmp = (*node);
 		*node = (*node)->next;
-		printf("node freed %p\n", tmp);
+		("node freed %p\n", tmp);
 		free(tmp);
 	}
 }
@@ -39,7 +39,7 @@ void	ft_free_addr(t_collector *list)
 {
 	t_collector	*head;
 
-	printf("point2 %p\n", (list));
+	("point2 %p\n", (list));
 	head = list;
 	while (head != NULL)
 	{
@@ -68,7 +68,7 @@ void	ft_collector_add_back(t_collector **list, t_collector *new_node)
 	}
 	if (!(*list))
 	{
-		printf("here\n");
+		("here\n");
 		*list = new_node;
 		return ;
 	}
@@ -95,7 +95,7 @@ t_collector	*ft_new_collector(void	*addr, t_collector **list)
 	t_collector	*node;
 
 	node = malloc(sizeof(t_collector));
-	printf("node alloc %p\n", node);
+	("node alloc %p\n", node);
 	if (!node)
 		ft_free_all_malloc_err(list);
 	node->addr = addr;

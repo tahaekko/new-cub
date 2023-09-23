@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 18:44:58 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/09/23 03:26:17 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void ft_mlx_init(t_data *data)
 {
-	data->mlx = mlx_init(WIDTH, HEIGHT, "ZEB!", true);
+	data->mlx = mlx_init();
 	if (data->mlx == NULL)
 		ft_free_error_type(&data->col, 0);
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "ZEB!");
 }
 
 t_img	*ft_img_init(t_data *data)
@@ -72,7 +73,7 @@ t_player	*ft_init_player(t_data *data)
 	player->width = 0;
 	// player->ypos = ft_get_player_y(data);
 	// player->xpos = ft_get_player_x(data, player->ypos);
-	printf("%f\n", player->xpos);
+	("%f\n", player->xpos);
 	player->xrot = 0;
 	player->yrot = 0;
 	player->angle = 0;
@@ -155,7 +156,7 @@ t_data	*ft_init(char *filename)
 
 	*col = NULL;
 	data = c_malloc(sizeof(t_data), col);
-	printf("HEAD1 %p\n", *col);
+	("HEAD1 %p\n", *col);
 	// exit(0);
 	data->col = *col;
 	data->number_of_files = 6;

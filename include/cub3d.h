@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 17:08:21 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/09/23 03:17:22 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# include "MLX42.h"
+# include "mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -140,7 +140,7 @@ typedef enum s_err
 
 typedef struct s_data
 {
-	mlx_t		*mlx;
+	void		*mlx;
 	void		*win;
 	t_collector	*col;
 	t_img		*main_img;

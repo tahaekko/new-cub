@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 10:09:02 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 19:02:34 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/09/23 03:26:19 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	foo()
 
 void	ft_free_all(t_data *data)
 {
-	printf("point %p\n", data->col);
+	("point %p\n", data->col);
 	ft_free_addr(data->col);
-	printf("point3 %p\n", data->col);
+	("point3 %p\n", data->col);
 	ft_free_collector(&data->col);
 	// mlx_terminate(data->mlx);
 	exit(0);
@@ -33,13 +33,13 @@ int	ft_exit(t_data * data)
 	return(1);
 }
 
- void	ft_hooks(mlx_key_data_t keydata, void *param)
+int ft_hook(int key, void *param)
 {
-	t_data *data;
-
-	data = (t_data *)param;
-	if (keydata.key == MLX_KEY_ESCAPE)
-		ft_free_all(data);
+	t_data *data = (t_data *)param;
+	if (key == ESC)
+		ft_exit(data);
+	("%d\n", key);
+	return 0;
 }
 
 int	main(int ac, char **av)
@@ -51,7 +51,7 @@ int	main(int ac, char **av)
 	if (!av[1])
 		exit(1);
 	data = ft_init(av[1]);
-	printf("HEAD1 %p\n", data->col);
-	mlx_key_hook(data->mlx, ft_hooks, (void *)data);
+	("HEAD1 %p\n", data->col);
+	mlx_key_hook(data->win, ft_hook, data);
 	mlx_loop(data->mlx);
 }
