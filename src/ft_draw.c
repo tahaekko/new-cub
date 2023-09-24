@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/24 17:56:10 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/24 19:44:33 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,37 @@ void	ft_draw_map(t_data *data)
 		}
 		i++;
 	}
-	ft_put_main_img(data);
+	// ft_put_main_img(data);
+}
+
+void	ft_draw_square(t_data *data, int x, int y, int color)
+{
+
+
+}
+
+void	ft_draw_player(t_data *data)
+{
+	t_player	*player;
+	double i;
+	double	j;
+
+	player = data->player;
+	i = 0;
+	while (i < player->height)
+	{
+		j = 0;
+		while (j < player->width)
+			ft_put_pix(data->main_img, (player->xpos * data->map->off_map) + j++ + data->map->off_map/2 - player->width / 2, \
+				(player->ypos * data->map->off_map) + i + data->map->off_map/2 - player->height / 2, 0xFF00FF, data);
+		i++;
+	}
 }
 
 void	ft_draw_init(t_data *data)
 {
 	ft_draw_map(data);
-	// ft_draw_player(data);
+	ft_draw_player(data);
 	// ft_draw_player();
 }
 

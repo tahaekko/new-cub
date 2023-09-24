@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/24 17:49:08 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/24 19:34:57 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ t_player	*ft_init_player(t_data *data)
 	t_player *player;
 
 	player = c_malloc(sizeof(t_player), &data->col);
-	player->height = 0;
-	player->width = 0;
+	player->height = 5;
+	player->width = 5;
 	player->ypos = ft_get_player_y(data);
 	player->xpos = ft_get_player_x(data, player->ypos);
 	printf("%f\n", player->ypos);
