@@ -6,12 +6,12 @@
 #    By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 17:25:24 by msamhaou          #+#    #+#              #
-#    Updated: 2023/09/23 03:16:12 by tahaexo          ###   ########.fr        #
+#    Updated: 2023/09/23 22:12:00 by tahaexo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Cub3D
-CC = cc
+CC = gcc
 CFLAGS = #-fsanitize=address
 HEADER = cub3d.h
 

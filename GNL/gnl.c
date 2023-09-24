@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gnl.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 11:19:19 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 18:47:00 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/09/23 22:10:55 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*ft_read(char *readed, int fd, t_collector **col)
 		if (!readed)
 		{
 			ft_free_addr(*col);
-			ft_free_collector(col);
+			ft_free_collector(*col);
 			exit(1);
 
 		}
@@ -52,7 +52,7 @@ char	*ft_line(char *str, t_collector **col)
 	if (!line)
 	{
 		ft_free_addr(*col);
-		ft_free_collector(col);
+		ft_free_collector(*col);
 		return (NULL);
 	}
 	ft_strlcpy(line, str, i + 1);
@@ -72,7 +72,7 @@ static char	*ft_next(char *str, t_collector **col)
 	if (!next)
 	{
 		ft_free_addr(*col);
-		ft_free_collector(col);
+		ft_free_collector(*col);
 		return (NULL);
 	}
 	len++;

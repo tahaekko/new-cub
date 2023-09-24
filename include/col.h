@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   col.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 17:45:25 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 19:02:25 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/09/23 22:09:31 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_collector
 
 void	*c_malloc(size_t size, t_collector **list);
 t_collector	*ft_new_collector(void	*addr, t_collector **list);
-void	ft_free_collector(t_collector **node);
+void	ft_free_collector(t_collector *node);
 void	ft_free_addr(t_collector *list);
 
 

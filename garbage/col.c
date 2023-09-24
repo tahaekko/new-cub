@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 17:44:43 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/23 03:26:13 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/23 22:27:13 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,39 @@
 void	ft_free_all_malloc_err(t_collector **col)
 {
 	ft_free_addr(*col);
-	ft_free_collector(col);
+	ft_free_collector(*col);
 	ft_putendl_fd("MALLOC FAILED !", 2);
 	exit(1);
 }
 
-void	ft_free_collector(t_collector **node)
+void	ft_free_collector(t_collector *node)
 {
 	t_collector	*tmp;
 
 	tmp = NULL;
-	("HEAD2 %p\n", *node);
-	while (*node)
+	printf("%p\n", node);
+	while (node)
 	{
-		tmp = (*node);
-		*node = (*node)->next;
-		("node freed %p\n", tmp);
+		tmp = (node);
+		node = (node)->next;
+		printf("node freed %p\n", tmp);
 		free(tmp);
+		tmp = NULL;
 	}
 }
 
 void	ft_free_addr(t_collector *list)
 {
 	t_collector	*head;
+	void	*tf;
 
-	("point2 %p\n", (list));
 	head = list;
 	while (head != NULL)
 	{
-		free((head)->addr);
+		tf = head->addr;
+		free(tf);
+		tf = NULL;
+
 		head = (head)->next;
 	}
 	// list = head;

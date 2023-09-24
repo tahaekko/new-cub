@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/23 17:24:21 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:49:08 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,20 @@ int	ft_get_player_x(t_data *data, int ypos)
 	return (x);
 }
 
+double	ft_get_angle(t_data *data)
+{
+  char	orient;
+
+  orient = data->orient_identifier;
+  if (orient == 'N')
+    return (270);
+  else if (orient == 'S')
+    return (90);
+  else if (orient == 'E')
+    return (180);
+  return (0);
+}
+
 t_player	*ft_init_player(t_data *data)
 {
 	t_player *player;
@@ -81,9 +95,10 @@ t_player	*ft_init_player(t_data *data)
 	player->xpos = ft_get_player_x(data, player->ypos);
 	printf("%f\n", player->ypos);
 	printf("%f\n", player->xpos);
+	player->angle = ft_get_angle(data) * (double)(DEG_TO_RAD);
+	printf("%f\n", player->angle);
 	player->xrot = 0;
 	player->yrot = 0;
-	player->angle = 0;
 	return (player);
 }
 
@@ -162,8 +177,6 @@ t_data	*ft_init(char *filename)
 
 	*col = NULL;
 	data = c_malloc(sizeof(t_data), col);
-	("HEAD1 %p\n", *col);
-	// exit(0);
 	data->col = *col;
 	data->number_of_files = 6;
 	ft_nullafy(data);
@@ -175,7 +188,7 @@ t_data	*ft_init(char *filename)
 	data->main_img = ft_img_init(data);
 	data->player = ft_init_player(data);
 	data->ray = ft_ray_init(&data->col);
-	printf("this %x\n", *((int *)data->texture[1].addr + 1));
 	ft_draw_init(data);
+	ft_put_main_img(data);
 	return (data);
 }
