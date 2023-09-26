@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/24 17:39:16 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/26 03:27:36 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define FOV 60
 # define PI 3.141592653589793
 # define RAD_TO_DEG 57.2958
-# define DEG_TO_RAD 0.0174533
+# define DEG_TO_RAD 0.01745329251
 # define GRID 20
 
 #define RECTCOLOR 0x7BB30C
@@ -120,12 +120,14 @@ typedef struct s_map
 	int off_map;
 	t_map_row	*map_compo;
 	char		**map_arr;
+	t_img		*map_img;
 }	t_map;
 
 typedef	struct s_ray
 {
-	t_vertex	*hit_point_h;
-	t_vertex	*hit_point_v;
+	double	h_x, h_y;
+	double	v_x, v_y;
+	double	length;
 	double		angle;
 }	t_ray;
 
@@ -166,7 +168,7 @@ typedef struct s_elem
 
 t_data	*ft_init(char *filename);
 void	ft_set_img(t_img *img, int width, int height,t_data *data);
-t_img	*ft_img_alloc();
+t_img	*ft_img_alloc(t_data *data);
 t_elem	*ft_single_color(int *addr);
 void	ft_put_pix(t_img *img, int x, int y, int color,t_data *data);
 void	ft_put_main_img(t_data *data);

@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 10:09:02 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/23 22:26:26 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/25 05:58:04 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	foo()
 void	ft_free_all(t_data *data)
 {
 	printf("point %p\n", data->col);
+	mlx_destroy_image(data->mlx, data->texture->img_ptr);
 	ft_free_addr(data->col);
 	// ft_free_collector(data->col);
 	exit(0);

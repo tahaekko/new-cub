@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/24 19:34:57 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/26 03:38:29 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_img	*ft_img_init(t_data *data)
 {
 	t_img	*img;
 
-	img = ft_img_alloc();
+	img = ft_img_alloc(data);
 	ft_set_img(img, WIDTH, HEIGHT, data);
 	return (img);
 }
@@ -38,6 +38,7 @@ t_map	*ft_map_init(t_data *data)
 	map->ymap = 0;
 	map->off_map = (int)GRID;
 	map->map_compo = NULL;
+
 	return (map);
 }
 int	ft_get_player_y(t_data *data)
@@ -70,6 +71,22 @@ int	ft_get_player_x(t_data *data, int ypos)
 	return (x);
 }
 
+void	ft_map_img_init(t_data *data)
+{
+	t_map *map;
+
+	map = data->map;
+	map->map_img = ft_img_alloc(data);
+	printf("%p\n", map->map_img);
+	printf("%p\n", map->map_img->addr);
+	printf("%p\n", map->map_img->img_ptr);
+
+	ft_set_img(map->map_img,WIDTH,HEIGHT,data);
+	for (int i = 0; i < HEIGHT ; i++)
+		for (int j = 0; j < WIDTH ; j++)
+			ft_put_pix(map->map_img, j, i, 0x00FFFFFF, data);
+}
+
 double	ft_get_angle(t_data *data)
 {
   char	orient;
@@ -79,7 +96,7 @@ double	ft_get_angle(t_data *data)
     return (270);
   else if (orient == 'S')
     return (90);
-  else if (orient == 'E')
+  else if (orient == 'W')
     return (180);
   return (0);
 }
@@ -93,12 +110,10 @@ t_player	*ft_init_player(t_data *data)
 	player->width = 5;
 	player->ypos = ft_get_player_y(data);
 	player->xpos = ft_get_player_x(data, player->ypos);
-	printf("%f\n", player->ypos);
-	printf("%f\n", player->xpos);
 	player->angle = ft_get_angle(data) * (double)(DEG_TO_RAD);
-	printf("%f\n", player->angle);
-	player->xrot = 0;
-	player->yrot = 0;
+	player->xrot = cos(player->angle);
+	player->yrot = sin(player->angle);
+
 	return (player);
 }
 
@@ -115,11 +130,19 @@ t_vertex	*ft_vertex(t_collector **col)
 t_ray	*ft_ray_init(t_collector **col)
 {
 	t_ray	*ray;
+	int		i;
 
-	ray = c_malloc(sizeof(t_ray), col);
-	ray->hit_point_h = ft_vertex(col);
-	ray->hit_point_v = ft_vertex(col);
-	ray->angle = 0;
+	i = 0;
+	ray = (t_ray *)c_malloc(sizeof(t_ray) * (int)WIDTH, col);
+	while (i < (int)WIDTH)
+	{
+		ray[i].h_x = 0;
+		ray[i].h_y = 0;
+		ray[i].v_x = 0;
+		ray[i].v_y = 0;
+		ray[i].length = 0;
+		ray[i++].angle = 0;
+	}
 	return (ray);
 }
 
@@ -165,9 +188,9 @@ t_img	*ft_init_textures(t_data *data)
 		texture[i] = ft_get_texture_img(data, &texture[i], data->files_arr[i]);
 		i++;
 	}
-	printf("%c\n", texture[0].addr[0]);
 	return (texture);
 }
+
 
 t_data	*ft_init(char *filename)
 {
@@ -188,7 +211,7 @@ t_data	*ft_init(char *filename)
 	data->main_img = ft_img_init(data);
 	data->player = ft_init_player(data);
 	data->ray = ft_ray_init(&data->col);
+	ft_map_img_init(data);
 	ft_draw_init(data);
-	ft_put_main_img(data);
 	return (data);
 }

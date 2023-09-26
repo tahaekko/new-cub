@@ -3,11 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calculations.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msamhaou <msamhaou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:45:52 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/08/09 13:48:07 by msamhaou         ###   ########.fr       */
+/*   Updated: 2023/09/25 04:43:03 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
 
+void	ft_debug(t_data *data)
+{
+	
+}
+
+void	ft_calculat()
+{
+
+}

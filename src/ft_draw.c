@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/24 19:44:33 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/26 03:38:46 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	ft_draw_grid(t_data *data, int x, int y, int color)
 		while (j < data->map->off_map)
 		{
 			if ((j + 1) == data->map->off_map || (i + 1) == data->map->off_map)
-				ft_put_pix(data->main_img, x + j++, y + i, 0, data);
+				ft_put_pix(data->map->map_img, x + j++, y + i, 0, data);
 			else
-				ft_put_pix(data->main_img, x + j++, y + i, color, data);
+				ft_put_pix(data->map->map_img, x + j++, y + i, color, data);
 		}
 		i++;
 	}
@@ -55,13 +55,13 @@ void	ft_draw_map(t_data *data)
 		}
 		i++;
 	}
-	// ft_put_main_img(data);
 }
 
-void	ft_draw_square(t_data *data, int x, int y, int color)
+void	ft_draw_dir(t_data *data, int x, int y, int color)
 {
+	//player pos to len
 
-
+	// while
 }
 
 void	ft_draw_player(t_data *data)
@@ -80,12 +80,15 @@ void	ft_draw_player(t_data *data)
 				(player->ypos * data->map->off_map) + i + data->map->off_map/2 - player->height / 2, 0xFF00FF, data);
 		i++;
 	}
+	// ft_draw_dir();
 }
 
 void	ft_draw_init(t_data *data)
 {
 	ft_draw_map(data);
 	ft_draw_player(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->map->map_img->img_ptr, 0,0);
+
 	// ft_draw_player();
 }
 
