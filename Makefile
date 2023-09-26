@@ -6,14 +6,17 @@
 #    By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 17:25:24 by msamhaou          #+#    #+#              #
-#    Updated: 2023/09/26 03:36:39 by tahaexo          ###   ########.fr        #
+#    Updated: 2023/09/26 05:24:35 by tahaexo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = Cub3D
 CC = gcc
 CFLAGS = -lm #-fsanitize=address -g
-HEADER = cub3d.h
+
+HEADER_DIR = include/
+HEADER_FILE = cub3d.h
+HEADER = $(addprefix $(HEADER_DIR), $(HEADER_FILE))
 
 ifeq ($(shell uname), Linux)
 	MLX_FLAGS = -lmlx -lm -lbsd -lX11 -lXext
@@ -55,7 +58,8 @@ LIBFT_OBJ = $(addprefix $(OBJ_DIR), $(LIBFT_OBJ_FILE))
 #*****************SRC*****************
 SRC_DIR = src/
 SRC = ft_init.c        ft_tool.c        ft_vector_draw.c libx_tools.c     main.c	ft_parse.c\
-		ft_draw.c	ft_gsplit.c	ft_print_err.c ft_gsubstr.c ft_gatoi.c ft_map_list.c	ft_map_chek.c
+		ft_draw.c	ft_gsplit.c	ft_print_err.c ft_gsubstr.c ft_gatoi.c ft_map_list.c	ft_map_chek.c\
+		ft_calculations.c
 FSRC = $(addprefix $(SRC_DIR), $(SRC))
 
 OBJ = $(SRC:.c=.o)
@@ -72,7 +76,7 @@ $(OBJ_DIR) :
 $(OBJ_DIR)%.o : $(LIBFT_DIR)%.c
 	$(CC) $(CFLAGS) -c $< -o $@ $(MLX_INC) -Iinclude/
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.c
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@ $(MLX_INC) -Iinclude/
 
 $(OBJ_DIR)%.o : $(GNL_DIR)%.c

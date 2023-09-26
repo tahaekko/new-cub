@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 10:09:02 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/25 05:58:04 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/26 05:25:27 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,5 @@ int	main(int ac, char **av)
 	data = ft_init(av[1]);
 	("HEAD1 %p\n", data->col);
 	mlx_key_hook(data->win, ft_hook, data);
-	mlx_loop(data->mlx);
+	// mlx_loop(data->mlx);
 }

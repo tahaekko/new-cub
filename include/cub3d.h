@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/26 03:27:36 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/26 05:24:46 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,12 @@ bool		ft_one_of_chr(char c);
 
 
 /****************/
+
+/*********Calculations**********/
+void	ft_calculat(t_data *data);
+
+
+/******************************/
 
 char	ft_orientation_strchr(const char *str);
 

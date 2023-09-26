@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/26 03:38:29 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/26 05:25:56 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,7 @@ t_data	*ft_init(char *filename)
 	data->player = ft_init_player(data);
 	data->ray = ft_ray_init(&data->col);
 	ft_map_img_init(data);
-	ft_draw_init(data);
+	ft_calculat(data);
+	// ft_draw_init(data);
 	return (data);
 }
