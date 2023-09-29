@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/26 05:25:56 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/29 00:50:27 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ t_map	*ft_map_init(t_data *data)
 
 	return (map);
 }
-int	ft_get_player_y(t_data *data)
+double	ft_get_player_y(t_data *data)
 {
-	int	y;
+	double	y;
 
 	y = 0;
 	while (data->map->map_compo)
@@ -56,19 +56,23 @@ int	ft_get_player_y(t_data *data)
 	return (0);
 }
 
-int	ft_get_player_x(t_data *data, int ypos)
+double	ft_get_player_x(t_data *data, int ypos)
 {
 	int	x;
 
 	x = 0;
-	while (data->map->map_compo && ypos--)
+	while (data->map->map_compo)
 	{
 		x = 0;
-		while (data->map->map_compo->row[x] != data->orient_identifier)
+		while (data->map->map_compo->row[x])
+		{
+			if (data->map->map_compo->row[x] == data->orient_identifier)
+				return (x);
 			x++;
+		}
 		data->map->map_compo = data->map->map_compo->next;
 	}
-	return (x);
+	return (0);
 }
 
 void	ft_map_img_init(t_data *data)
@@ -108,8 +112,8 @@ t_player	*ft_init_player(t_data *data)
 	player = c_malloc(sizeof(t_player), &data->col);
 	player->height = 5;
 	player->width = 5;
-	player->ypos = ft_get_player_y(data);
-	player->xpos = ft_get_player_x(data, player->ypos);
+	player->ypos = (double)ft_get_player_y(data) * (double)GRID;
+	player->xpos = (double)ft_get_player_x(data, player->ypos) * (double)GRID;
 	player->angle = ft_get_angle(data) * (double)(DEG_TO_RAD);
 	player->xrot = cos(player->angle);
 	player->yrot = sin(player->angle);
@@ -212,7 +216,10 @@ t_data	*ft_init(char *filename)
 	data->player = ft_init_player(data);
 	data->ray = ft_ray_init(&data->col);
 	ft_map_img_init(data);
-	ft_calculat(data);
+
+	ft_calculat_ray_angles(&data->player->angle, data->ray);
+	ft_calculate_ray_dir(data);
+	data->key_pressed = c_malloc(sizeof(int) * 6, &data->col);
 	// ft_draw_init(data);
 	return (data);
 }

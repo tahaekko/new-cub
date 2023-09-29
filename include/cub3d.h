@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/26 05:24:46 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/28 18:04:11 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ typedef	struct s_ray
 	double	h_x, h_y;
 	double	v_x, v_y;
 	double	length;
+	int	up;
+	int	right;
 	double		angle;
 }	t_ray;
 
@@ -145,6 +147,7 @@ typedef struct s_data
 {
 	void		*mlx;
 	void		*win;
+	int			*key_pressed; //W S D A RG LF
 	char		orient_identifier;
 	t_collector	*col;
 	t_img		*main_img;
@@ -202,8 +205,9 @@ bool		ft_one_of_chr(char c);
 /****************/
 
 /*********Calculations**********/
-void	ft_calculat(t_data *data);
-
+void	ft_calculat_ray_angles(double *player_ang, t_ray *ray);
+void	ft_calculate_ray_dir(t_data *data);
+void	ft_calculate(t_data *data);
 
 /******************************/
 
