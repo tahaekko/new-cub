@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/30 04:23:50 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 16:01:47 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,13 @@ void	ft_draw_player(t_data *data)
 
 	player = data->player;
 	i = 0;
-	printf("xpos %f\n", player->xpos);
 	while (i < player->height)
 	{
 		j = 0;
 		while (j < player->width)
 		{
-			ft_put_pix(data->map->map_img, (player->xpos) + (j++)+ data->map->off_map/2 - player->width / 2, \
-				(player->ypos) + i + data->map->off_map/2 - player->height / 2, 0xFF00FF, data);
+			ft_put_pix(data->map->map_img, (player->xpos) + (j++) - ((double)player->width / 2), \
+				(player->ypos) + i - ((double)player->height / 2), 0xFF00FF, data);
 		}
 		i++;
 	}
@@ -94,8 +93,7 @@ void	ft_draw_init(t_data *data)
 	ft_draw_player(data);
 
 	double a[2] = {data->player->xpos, data->player->ypos};
-	double b[2] = {data->ray[0].nearx,\
-					 data->ray[0].neary};
+	double b[2] = {data->ray[0].nearx, data->ray[0].neary};
 	ft_vect_draw(a,b,0xFF,data,data->map->map_img);
 	mlx_put_image_to_window(data->mlx, data->win, data->map->map_img->img_ptr, 0,0);
 

@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/30 04:27:59 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 16:25:20 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ typedef	struct s_ray
 	double	h_x, h_y;
 	double	v_x, v_y;
 	double	length;
-	int		nearx, neary;
+	double		nearx, neary;
 	int	up;
 	int	right;
 	double		angle;

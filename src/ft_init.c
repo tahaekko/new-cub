@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/30 04:26:11 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 15:17:16 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ t_map	*ft_map_init(t_data *data)
 
 	return (map);
 }
-double	ft_get_player_y(t_data *data)
+int	ft_get_player_y(t_data *data)
 {
-	double	y;
+	int	y;
 
 	y = 0;
 	while (data->map->map_compo)
@@ -56,7 +56,7 @@ double	ft_get_player_y(t_data *data)
 	return (0);
 }
 
-double	ft_get_player_x(t_data *data, int ypos)
+int	ft_get_player_x(t_data *data, int ypos)
 {
 	int	x;
 
@@ -108,8 +108,10 @@ t_player	*ft_init_player(t_data *data)
 	player = c_malloc(sizeof(t_player), &data->col);
 	player->height = 5;
 	player->width = 5;
-	player->ypos = (double)ft_get_player_y(data) * (double)GRID;
-	player->xpos = (double)ft_get_player_x(data, player->ypos) * (double)GRID;
+	player->grid_y = (double)ft_get_player_y(data);
+	player->grid_x = (double)ft_get_player_x(data, player->ypos);
+	player->ypos =  (double)player->grid_y * (double)GRID + ((double)GRID / 2);
+	player->xpos =  (double)player->grid_x * (double)GRID + ((double)GRID / 2);
 	player->angle = ft_get_angle(data) * (double)(DEG_TO_RAD);
 	player->xrot = cos(player->angle);
 	player->yrot = sin(player->angle);
