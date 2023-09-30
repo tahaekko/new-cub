@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/30 16:01:47 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:19:52 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void	ft_draw_init(t_data *data)
 	ft_draw_player(data);
 
 	double a[2] = {data->player->xpos, data->player->ypos};
-	double b[2] = {data->ray[0].nearx, data->ray[0].neary};
+	double b[2] = {data->ray[0].h_x, data->ray[0].h_y};
+	printf("%f--%f\n", data->ray[0].h_x, data->ray[0].h_y);
 	ft_vect_draw(a,b,0xFF,data,data->map->map_img);
 	mlx_put_image_to_window(data->mlx, data->win, data->map->map_img->img_ptr, 0,0);
 

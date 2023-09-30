@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:24:33 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/30 04:24:30 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 22:19:09 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ double	*ft_hypo_calc(double *a, double *b)
 	// double	deg;
 
 	x = fabs(b[0] - a[0]);
-	y = fabs(a[1] - b[1]);
+	y = b[1] - a[1];
 
 	hypo = malloc(sizeof(double) * 2);
 	hypo[0] = sqrt((x * x) + (y * y));
@@ -47,7 +47,7 @@ void	ft_vect_draw(double *a, double *b, int color, t_data *data, t_img *img)
 	{
 		if ((int)a[0] + x > 0 && (int)a[0] + x < WIDTH &&  (int)a[1] + y > 0 && (int)a[1] + y < HEIGHT)
 			ft_put_pix(img,(int)a[0] + x, (int)a[1] + y, color, data);
-		x+= cos(hypo[1]);
+		x += cos(hypo[1]);
 		y += sin(hypo[1]);
 		i++;
 	}
