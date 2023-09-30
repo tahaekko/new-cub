@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/28 18:04:11 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 01:20:36 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,5 +212,6 @@ void	ft_calculate(t_data *data);
 /******************************/
 
 char	ft_orientation_strchr(const char *str);
+void	ft_vect_draw(double *a, double *b, int color, t_data *data, t_img *img);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/26 03:38:46 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 01:40:03 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,32 @@ void	ft_draw_player(t_data *data)
 
 	player = data->player;
 	i = 0;
+	printf("xpos %f\n", player->xpos);
 	while (i < player->height)
 	{
 		j = 0;
+		printf("%f\n", i);
 		while (j < player->width)
-			ft_put_pix(data->main_img, (player->xpos * data->map->off_map) + j++ + data->map->off_map/2 - player->width / 2, \
-				(player->ypos * data->map->off_map) + i + data->map->off_map/2 - player->height / 2, 0xFF00FF, data);
+		{
+			ft_put_pix(data->map->map_img, (player->xpos) + (j++)+ data->map->off_map/2 - player->width / 2, \
+				(player->ypos) + i + data->map->off_map/2 - player->height / 2, 0xFF00FF, data);
+		}
 		i++;
 	}
+	// mlx_put_image_to_window(data->mlx, data->win, data->map->map_img->img_ptr, 0,0);
+
 	// ft_draw_dir();
 }
 
 void	ft_draw_init(t_data *data)
 {
 	ft_draw_map(data);
+	printf("here 2\n");
 	ft_draw_player(data);
+
+	double a[2] = {0,0};
+	double b[2] = {300, 300};
+	ft_vect_draw(a,b,0xFF,data,data->map->map_img);
 	mlx_put_image_to_window(data->mlx, data->win, data->map->map_img->img_ptr, 0,0);
 
 	// ft_draw_player();
