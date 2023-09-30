@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:24:33 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/30 02:46:38 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 04:24:30 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	ft_vect_draw(double *a, double *b, int color, t_data *data, t_img *img)
 	double	y;
 
 	i = 0;
-	printf("%d\n", (int)b[0]);
 	hypo = ft_hypo_calc(a, b);
 
 	x = 0;
@@ -50,7 +49,6 @@ void	ft_vect_draw(double *a, double *b, int color, t_data *data, t_img *img)
 			ft_put_pix(img,(int)a[0] + x, (int)a[1] + y, color, data);
 		x+= cos(hypo[1]);
 		y += sin(hypo[1]);
-		printf ("%f\n",y);
 		i++;
 	}
 }

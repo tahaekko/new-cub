@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/30 01:20:36 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 04:27:59 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ typedef struct s_player
 {
 	int		height;
 	int		width;
+	int		grid_x;
+	int		grid_y;
 	double	xpos;
-	t_vertex	*point;
 	double	ypos;
 	double	angle;
 	double	xrot;
@@ -128,6 +129,7 @@ typedef	struct s_ray
 	double	h_x, h_y;
 	double	v_x, v_y;
 	double	length;
+	int		nearx, neary;
 	int	up;
 	int	right;
 	double		angle;

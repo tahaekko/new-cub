@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:45:52 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/29 16:52:21 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 04:26:35 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ void	ft_calculate(t_data *data)
 			nearx = ((data->player->xpos / (double)GRID) * (double)GRID) + (double)GRID + 0.0001;
 		else
 			nearx = ((data->player->xpos / (double)GRID) * (double)GRID) - 0.0001;
-		printf("%f -- %f\n",neary, nearx);
+		ray[i].nearx = nearx;
+		ray[i].neary = neary;
+		printf("%d\n", ray[i].nearx);
 		i++;
 	}
 }

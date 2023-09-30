@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/29 22:56:51 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/09/30 04:26:11 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,6 @@ void	ft_map_img_init(t_data *data)
 	map = data->map;
 	map->map_img = ft_img_alloc(data);
 	ft_set_img(map->map_img,WIDTH,HEIGHT,data);
-	printf("1 %p\n", map->map_img);
-	printf("2 %p\n", map->map_img->addr);
-	printf("3 %p\n", map->map_img->img_ptr);
 	for (int i = 0; i < HEIGHT ; i++)
 		for (int j = 0; j < WIDTH ; j++)
 			ft_put_pix(map->map_img, j, i, 0x00FFFFFF, data);
@@ -217,6 +214,7 @@ t_data	*ft_init(char *filename)
 	ft_map_img_init(data);
 	ft_calculat_ray_angles(&data->player->angle, data->ray);
 	ft_calculate_ray_dir(data);
+	ft_calculate(data);
 	data->key_pressed = c_malloc(sizeof(int) * 6, &data->col);
 	ft_draw_init(data);
 	return (data);
