@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:45:52 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/30 22:02:07 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/02 21:58:37 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,13 @@ void	ft_calculate(t_data *data)
 		ray[i].neary = neary;
 		ray[i].h_y = ray[i].neary;
 		ray[i].h_x = data->player->xpos + (fabs(data->player->ypos - ray[i].h_y) / tan(ray[i].angle));
-		printf("ppos %f -- %f --ang %f\n", data->player->ypos,  ray[i].neary, ray[i].h_x);
+
+		ray[i].v_x = nearx;
+		if (ray[i].right)
+			ray[i].v_y = data->player->ypos + (fabs(data->player->xpos - ray[i].v_x) * tan(ray[i].angle));
+		else
+			ray[i].v_y = data->player->ypos - (fabs(data->player->xpos - ray[i].v_x) * tan(ray[i].angle));
+		printf("ppos %f -- %f --ang %f\n", data->player->ypos,  ray[i].v_y, ray[i].h_x);
 		i++;
 	}
 }
