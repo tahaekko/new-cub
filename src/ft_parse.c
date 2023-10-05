@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 20:14:24 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/23 16:48:31 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/05 02:43:39 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,6 +290,28 @@ void	ft_set_map_arr(t_data *data)
 	}
 	data->map->map_arr[i] = NULL;
 }
+void	ft_set_map_height_width(t_map *map)
+{
+	int i;
+	int	j;
+	int	max;
+
+	i = 0;
+	max = i;
+	while (map->map_arr[i])
+	{
+		j = 0;
+		while (map->map_arr[i][j])
+		{
+			if (j > max)
+				max = j;
+			j++;
+		}
+		i++;
+	}
+	map->xmap = max;
+	map->ymap = i;
+}
 
 void	ft_map(t_data *data, char *filename,int fd)
 {
@@ -303,6 +325,7 @@ void	ft_map(t_data *data, char *filename,int fd)
 	if (ft_check_map_lines(data->map->map_compo) == -1)
 		ft_free_error_type(&data->col, 4);
 	ft_set_map_arr(data);
+	ft_set_map_height_width(data->map);
 }
 
 int	ft_parse(char *filename, t_data *data)

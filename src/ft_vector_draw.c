@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:24:33 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/30 22:19:09 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/05 03:10:52 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,63 @@ void	ft_vect_draw(double *a, double *b, int color, t_data *data, t_img *img)
 	{
 		if ((int)a[0] + x > 0 && (int)a[0] + x < WIDTH &&  (int)a[1] + y > 0 && (int)a[1] + y < HEIGHT)
 			ft_put_pix(img,(int)a[0] + x, (int)a[1] + y, color, data);
+
 		x += cos(hypo[1]);
 		y += sin(hypo[1]);
+		i++;
+	}
+}
+
+double	ft_player_ray_hypo()
+{
+
+}
+
+void	ft_draw_ray_vertical(t_data *data, t_player *player, t_ray ray)
+{
+	double	x,y;
+	double	i = 0;
+	double	hypo;
+
+	x = 0;
+	y = 0;
+	hypo = ((player->xpos - ray.v_x) * (player->xpos - ray.v_x)) \
+				+ ((player->ypos - ray.v_y) * (player->ypos - ray.v_y));
+	hypo = sqrt(hypo);
+	while (i < hypo)
+	{
+		if ((player->ypos + y < 0 )|| (player->ypos + y >( data->map->ymap * (int)GRID)) || \
+			(player->xpos + x < 0 )|| (player->xpos + x > data->map->xmap * (int)GRID))
+			break;
+		ft_put_pix(data->map->map_img, data->player->xpos + x, data->player->ypos + y, \
+			0xFF, data);
+		x += cos(ray.angle);
+		y += sin(ray.angle);
+		i++;
+	}
+}
+
+void	ft_draw_ray_horizontal(t_data *data, t_player *player, t_ray ray)
+{
+	double	x,y;
+	double	i = 0;
+	double	hypo;
+
+	x = 0;
+	y = 0;
+	hypo = ((player->xpos - ray.h_x) * (player->xpos - ray.h_x)) \
+				+ ((player->ypos - ray.h_y) * (player->ypos - ray.h_y));
+	hypo = sqrt(hypo);
+	while (i < hypo)
+	{		print_int(i);
+
+		if ((player->ypos + y < 0 )|| (player->ypos + y >( data->map->ymap * (int)GRID)) || \
+			(player->xpos + x < 0 )|| (player->xpos + x > data->map->xmap * (int)GRID))
+			break;
+		ft_put_pix(data->map->map_img, data->player->xpos + x, data->player->ypos + y, \
+			0xFF, data);
+		x += cos(ray.angle);
+		y += sin(ray.angle);
 		i++;
 	}
 }
