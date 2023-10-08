@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:45:52 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/05 00:39:50 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/08 19:22:19 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,49 @@ void	ft_calculate(t_data *data)
 			ray[i].v_y = data->player->ypos + (fabs(data->player->xpos - ray[i].v_x) * tan(ray[i].angle));
 		else
 			ray[i].v_y = data->player->ypos - (fabs(data->player->xpos - ray[i].v_x) * tan(ray[i].angle));
-		// if (i == 0 || i == 599)
-			// printf("ppos %f -- %f --ang %f\n", data->player->xpos,  ray[i].v_y, ray[i].h_x);
+
+
+		while(((int)ray[i].v_y  / (int)GRID) > -1 && (int)ray[i].v_y  / (int)GRID < data->map->ymap&& \
+					((int)ray[i].v_x  / (int)GRID) > -1 && (int)ray[i].v_x  / (int)GRID < data->map->xmap &&\
+						data->map->map_arr[(int)ray[i].v_y  / (int)GRID][(int)ray[i].v_x / (int)GRID] == '0')
+		{
+			if (ray[i].right)
+			{
+				ray[i].v_x += (double)GRID;
+				ray[i].v_y += tan(ray[i].angle) * (double)GRID;
+			}
+			else
+			{
+				ray[i].v_x -= (double)GRID;
+				ray[i].v_y -= tan(ray[i].angle) * (double)GRID;
+			}
+		}
+
+		int j = 0;
+		while(((int)ray[i].h_y  / (int)GRID) > -1 && (int)ray[i].h_y  / (int)GRID < data->map->ymap&& \
+					((int)ray[i].h_x  / (int)GRID) > -1 && (int)ray[i].h_x  / (int)GRID < data->map->xmap &&\
+						data->map->map_arr[(int)ray[i].h_y  / (int)GRID][(int)ray[i].h_x / (int)GRID] == '0')
+		{
+			if (ray[i].up)
+			{
+				ray[i].h_y -= (double)GRID;
+				ray[i].h_x -= (double)GRID / tan(ray[i].angle);
+			}
+			else
+			{
+				ray[i].h_y += (double)GRID;
+				ray[i].h_x += (double)GRID / tan(ray[i].angle);
+			}
+			j++;
+		}
+
+		double vertical[] = {ray[i].v_x, ray[i].v_y};
+		double horizontal[] = {ray[i].h_x, ray[i].h_y};
+		double pp[] = {data->player->xpos, data->player->ypos};
+		if (ft_hypo_calc(pp, vertical)[0] < ft_hypo_calc(pp, horizontal)[0])
+			ray[i].is_vertical = 1;
+		else
+			ray[i].is_vertical = 0;
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:24:33 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/05 03:10:52 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/08 19:23:39 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,13 @@ void	ft_draw_ray_horizontal(t_data *data, t_player *player, t_ray ray)
 				+ ((player->ypos - ray.h_y) * (player->ypos - ray.h_y));
 	hypo = sqrt(hypo);
 	while (i < hypo)
-	{		print_int(i);
+	{
 
 		if ((player->ypos + y < 0 )|| (player->ypos + y >( data->map->ymap * (int)GRID)) || \
 			(player->xpos + x < 0 )|| (player->xpos + x > data->map->xmap * (int)GRID))
 			break;
 		ft_put_pix(data->map->map_img, data->player->xpos + x, data->player->ypos + y, \
-			0xFF, data);
+			0xFF0000, data);
 		x += cos(ray.angle);
 		y += sin(ray.angle);
 		i++;

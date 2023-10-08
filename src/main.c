@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 10:09:02 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/29 23:30:18 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/08 19:19:59 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int ft_tst(int key, void *param)
 	ft_calculat_ray_angles(&data->player->angle, data->ray);
 	ft_calculate_ray_dir(data);
 	ft_calculate(data);
-	("%d\n", key);
+	ft_update(data);
 	return 0;
 }
 
