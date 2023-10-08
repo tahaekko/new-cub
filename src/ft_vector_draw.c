@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:24:33 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/08 19:23:39 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/08 19:31:23 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 
-double	*ft_hypo_calc(double *a, double *b)
+double	*ft_hypo_calc(double *a, double *b, t_data *data)
 {
 	double	*hypo;
 	double	x;
@@ -24,7 +24,7 @@ double	*ft_hypo_calc(double *a, double *b)
 	x = fabs(b[0] - a[0]);
 	y = b[1] - a[1];
 
-	hypo = malloc(sizeof(double) * 2);
+	hypo = c_malloc(sizeof(double) * 2, &data->col);
 	hypo[0] = sqrt((x * x) + (y * y));
 	hypo[1] = asin(y / hypo[0]);
 
@@ -39,7 +39,7 @@ void	ft_vect_draw(double *a, double *b, int color, t_data *data, t_img *img)
 	double	y;
 
 	i = 0;
-	hypo = ft_hypo_calc(a, b);
+	hypo = ft_hypo_calc(a, b, data);
 
 	x = 0;
 	y = 0;

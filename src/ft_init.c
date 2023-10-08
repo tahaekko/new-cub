@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/09/30 15:17:16 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/08 19:45:59 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ t_data	*ft_init(char *filename)
 	*col = NULL;
 	data = c_malloc(sizeof(t_data), col);
 	data->col = *col;
+	data->coll = col;
 	data->number_of_files = 6;
 	ft_nullafy(data);
 	data->files_arr = ft_chars_alloc(data->number_of_files, &data->col);

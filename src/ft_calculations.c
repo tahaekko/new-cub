@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:45:52 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/08 19:22:19 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/08 19:30:57 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	ft_calculate(t_data *data)
 		double vertical[] = {ray[i].v_x, ray[i].v_y};
 		double horizontal[] = {ray[i].h_x, ray[i].h_y};
 		double pp[] = {data->player->xpos, data->player->ypos};
-		if (ft_hypo_calc(pp, vertical)[0] < ft_hypo_calc(pp, horizontal)[0])
+		if (ft_hypo_calc(pp, vertical, data)[0] < ft_hypo_calc(pp, horizontal, data)[0])
 			ray[i].is_vertical = 1;
 		else
 			ray[i].is_vertical = 0;

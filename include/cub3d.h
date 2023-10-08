@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/07 21:23:28 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/08 19:45:44 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ typedef struct s_data
 	int			*key_pressed; //W S D A RG LF
 	char		orient_identifier;
 	t_collector	*col;
+	t_collector	**coll;
 	t_img		*main_img;
 	t_map		*map;
 	t_player	*player;
@@ -211,7 +212,7 @@ bool		ft_one_of_chr(char c);
 void	ft_calculat_ray_angles(double *player_ang, t_ray *ray);
 void	ft_calculate_ray_dir(t_data *data);
 void	ft_calculate(t_data *data);
-double	*ft_hypo_calc(double *a, double *b);
+double	*ft_hypo_calc(double *a, double *b, t_data *data);
 
 
 /******************************/
