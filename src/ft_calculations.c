@@ -46,20 +46,70 @@ void	ft_calculate_ray_dir(t_data *data)
 	while (i < (int)WIDTH)
 	{
 		ang = data->ray[i].angle;
-		if (ang > 0 && ang < (double)PI)
-			data->ray[i].up = 0;
-		else if (ang > (double)PI && ang < (2 * (double)PI))
-			data->ray[i].up = 1;
-		else
-			data->ray[i].up = -1;
-		if (((ang > 0) && (ang < ((double)PI / 2))) || \
-			((ang < (2 * (double)PI)) && (ang > (3 * ((double)PI / 2)))))
-			data->ray[i].right = 1;
-		else if (((ang < (3 * ((double)PI / 2))) && (ang > ((double)PI / 2))))
-			data->ray[i].right = 0;
-		else
-			data->ray[i].right = -1;
+		data->ray[i].up = (ang > (double)PI && ang < (2 * (double)PI));
+		data->ray[i].right = !(ang < (3 * ((double)PI / 2))) && (ang > ((double)PI / 2));
 		i++;
+	}
+
+}
+
+void	ft_horizontal_intersect(t_data *data)
+{
+	t_ray	*ray;
+
+	ray = data->ray;
+	int i = 0;
+	ray[i].h_y = ray[i].neary;
+	if (ray[i].up)
+		ray[i].h_x = data->player->xpos - (fabs(data->player->ypos - ray[i].h_y) / tan(ray[i].angle));
+	else
+		ray[i].h_x = data->player->xpos + (fabs(data->player->ypos - ray[i].h_y) / tan(ray[i].angle));
+
+	while(((int)ray[i].h_y  / (int)GRID) > -1 && (int)ray[i].h_y  / (int)GRID < data->map->ymap&& \
+				((int)ray[i].h_x  / (int)GRID) > -1 && (int)ray[i].h_x  / (int)GRID < data->map->xmap &&\
+					data->map->map_arr[(int)ray[i].h_y  / (int)GRID][(int)ray[i].h_x / (int)GRID] == '0')
+	{
+		if (ray[i].up)
+		{
+			ray[i].h_y -= (double)GRID;
+			ray[i].h_x -= (double)GRID / tan(ray[i].angle);
+		}
+		else
+		{
+			ray[i].h_y += (double)GRID;
+			ray[i].h_x += (double)GRID / tan(ray[i].angle);
+		}
+	}
+}
+
+void	ft_vertical_intersect(t_data *data)
+{
+	t_ray	*ray;
+
+	ray = data->ray;
+	int i;
+
+	// ray[i].v_x = nearx;
+		if (ray[i].right)
+			ray[i].v_y = data->player->ypos + (fabs(data->player->xpos - ray[i].v_x) * tan(ray[i].angle));
+		else
+			ray[i].v_y = data->player->ypos - (fabs(data->player->xpos - ray[i].v_x) * tan(ray[i].angle));
+
+
+	while(((int)ray[i].v_y  / (int)GRID) > -1 && (int)ray[i].v_y  / (int)GRID < data->map->ymap&& \
+				((int)ray[i].v_x  / (int)GRID) > -1 && (int)ray[i].v_x  / (int)GRID < data->map->xmap &&\
+					data->map->map_arr[(int)ray[i].v_y  / (int)GRID][(int)ray[i].v_x / (int)GRID] == '0')
+	{
+		if (ray[i].right)
+		{
+			ray[i].v_x += (double)GRID;
+			ray[i].v_y += tan(ray[i].angle) * (double)GRID;
+		}
+		else
+		{
+			ray[i].v_x -= (double)GRID;
+			ray[i].v_y -= tan(ray[i].angle) * (double)GRID;
+		}
 	}
 
 }
@@ -74,63 +124,13 @@ void	ft_calculate(t_data *data)
 	i = 0;
 	while (i < (int)WIDTH)
 	{
-		if (ray[i].up == 1)
-			neary = (double)((int)(data->player->ypos / (double)GRID) * (int)GRID) - 0.0001;
-		else
-			neary = (double)((int)(data->player->ypos / (double)GRID) * (int)GRID) + (double)GRID+  0.0001;
-		if (ray[i].right)
-			nearx = ((int)(data->player->xpos / (double)GRID) * (double)GRID) + (double)GRID + 0.0001;
-		else
-			nearx = ((int)(data->player->xpos / (double)GRID) * (double)GRID) - 0.0001;
+		neary = (double)((int)(data->player->ypos / (double)GRID) * (int)GRID) + (-(2*ray[i].up - 1) * 0.0001) + (!(ray[i].up) * GRID);
+		nearx = ((int)(data->player->xpos / (double)GRID) * (double)GRID) + (ray[i].right * GRID) + ((2 * ray[i].right - 1) * 0.0001);
+		printf("%f\n", nearx);
+		exit(1);
 		ray[i].nearx = nearx;
 		ray[i].neary = neary;
 
-		ray[i].h_y = ray[i].neary;
-		if (ray[i].up)
-			ray[i].h_x = data->player->xpos - (fabs(data->player->ypos - ray[i].h_y) / tan(ray[i].angle));
-		else
-			ray[i].h_x = data->player->xpos + (fabs(data->player->ypos - ray[i].h_y) / tan(ray[i].angle));
-
-		ray[i].v_x = nearx;
-		if (ray[i].right)
-			ray[i].v_y = data->player->ypos + (fabs(data->player->xpos - ray[i].v_x) * tan(ray[i].angle));
-		else
-			ray[i].v_y = data->player->ypos - (fabs(data->player->xpos - ray[i].v_x) * tan(ray[i].angle));
-
-
-		while(((int)ray[i].v_y  / (int)GRID) > -1 && (int)ray[i].v_y  / (int)GRID < data->map->ymap&& \
-					((int)ray[i].v_x  / (int)GRID) > -1 && (int)ray[i].v_x  / (int)GRID < data->map->xmap &&\
-						data->map->map_arr[(int)ray[i].v_y  / (int)GRID][(int)ray[i].v_x / (int)GRID] == '0')
-		{
-			if (ray[i].right)
-			{
-				ray[i].v_x += (double)GRID;
-				ray[i].v_y += tan(ray[i].angle) * (double)GRID;
-			}
-			else
-			{
-				ray[i].v_x -= (double)GRID;
-				ray[i].v_y -= tan(ray[i].angle) * (double)GRID;
-			}
-		}
-
-		int j = 0;
-		while(((int)ray[i].h_y  / (int)GRID) > -1 && (int)ray[i].h_y  / (int)GRID < data->map->ymap&& \
-					((int)ray[i].h_x  / (int)GRID) > -1 && (int)ray[i].h_x  / (int)GRID < data->map->xmap &&\
-						data->map->map_arr[(int)ray[i].h_y  / (int)GRID][(int)ray[i].h_x / (int)GRID] == '0')
-		{
-			if (ray[i].up)
-			{
-				ray[i].h_y -= (double)GRID;
-				ray[i].h_x -= (double)GRID / tan(ray[i].angle);
-			}
-			else
-			{
-				ray[i].h_y += (double)GRID;
-				ray[i].h_x += (double)GRID / tan(ray[i].angle);
-			}
-			j++;
-		}
 
 		double vertical[] = {ray[i].v_x, ray[i].v_y};
 		double horizontal[] = {ray[i].h_x, ray[i].h_y};
