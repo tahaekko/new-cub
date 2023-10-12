@@ -6,11 +6,30 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/08 19:18:37 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/12 18:58:04 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_draw_wall(t_data *data)
+{
+	int	y =0;
+	int i = 0;
+	int start;
+
+	while (i < WIDTH)
+	{
+		start = ((int)HEIGHT / 2) - (data->ray[i].wall/2);
+		y = 0;
+		while (y < data->ray[i].wall)
+		{
+			ft_put_pix(data->map->map_img, i,y + start,0xFF0000,data);
+			y++;
+		}
+		i++;
+	}
+}
 
 void	ft_draw_grid(t_data *data, int x, int y, int color)
 {
@@ -49,7 +68,7 @@ void	ft_draw_map(t_data *data)
 			if (data->map->map_arr[i][j] == '1')
 				color = (int)WALL;
 			else if (data->map->map_arr[i][j] != '0' )
-				color = 0xFF000000;
+				color = 0x00FFFFFF;
 			ft_draw_grid(data, data->map->off_map * j, data->map->off_map * i, color);
 			j++;
 		}
@@ -92,18 +111,29 @@ void	ft_draw_init(t_data *data)
 	ft_draw_map(data);
 	ft_draw_player(data);
 	ft_draw_debug(data, 1);
+	ft_draw_wall(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->map->map_img->img_ptr, 0,0);
 
 	// ft_draw_player();
 }
 
+void	set_black_back(t_data *data)
+{
+	for (int i = 0; i < (int)HEIGHT; i++)
+		for (int j = 0; j < (int)WIDTH; j++)
+			ft_put_pix(data->map->map_img, j,i,0xFFFFFFFF,data);
+}
+
 void	ft_update(t_data *data)
 {
-	// mlx_destroy_image(data->mlx, data->map->map_img);
-	// data->map->map_img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	mlx_clear_window(data->mlx, data->win);
+	// mlx_destroy_image(data->mlx, data->map->map_img->img_ptr);
+	// data->map->map_img->img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	set_black_back(data);
 	ft_draw_map(data);
 	ft_draw_player(data);
 	ft_draw_debug(data, 1);
+	ft_draw_wall(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->map->map_img->img_ptr, 0,0);
 
 }

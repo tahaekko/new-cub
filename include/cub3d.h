@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/08 19:45:44 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/12 18:37:36 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ typedef	struct s_ray
 	double	v_x, v_y;
 	double	length;
 	double		nearx, neary;
+	double		distance;
+	int			wall;
 	int	up;
 	int	right;
 	int is_vertical;
@@ -221,6 +223,7 @@ char	ft_orientation_strchr(const char *str);
 void	ft_vect_draw(double *a, double *b, int color, t_data *data, t_img *img);
 void	ft_draw_ray_vertical(t_data *data, t_player *player, t_ray ray);
 void	ft_draw_ray_horizontal(t_data *data, t_player *player, t_ray ray);
+void	ft_draw_wall(t_data *data);
 
 void	ft_draw_debug(t_data *data, int type);
 void	print_float(float f);

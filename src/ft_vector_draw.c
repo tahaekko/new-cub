@@ -24,7 +24,7 @@ double	*ft_hypo_calc(double *a, double *b, t_data *data)
 	x = fabs(b[0] - a[0]);
 	y = b[1] - a[1];
 
-	hypo = c_malloc(sizeof(double) * 2, &data->col);
+	hypo = malloc(sizeof(double) * 2);
 	hypo[0] = sqrt((x * x) + (y * y));
 	hypo[1] = asin(y / hypo[0]);
 
@@ -52,6 +52,7 @@ void	ft_vect_draw(double *a, double *b, int color, t_data *data, t_img *img)
 		y += sin(hypo[1]);
 		i++;
 	}
+	free(hypo);
 }
 
 double	ft_player_ray_hypo()

@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/08 19:45:59 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/12 18:51:02 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_map_img_init(t_data *data)
 	ft_set_img(map->map_img,WIDTH,HEIGHT,data);
 	for (int i = 0; i < HEIGHT ; i++)
 		for (int j = 0; j < WIDTH ; j++)
-			ft_put_pix(map->map_img, j, i, 0x00FFFFFF, data);
+			ft_put_pix(map->map_img, j, i, 0x0, data);
 }
 
 double	ft_get_angle(t_data *data)

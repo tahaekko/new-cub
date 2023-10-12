@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:45:52 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/08 19:30:57 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/12 19:02:19 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	ft_debug(t_data *data)
 {
 
 }
+
+
 
 void	ft_calculat_ray_angles(double *player_ang, t_ray *ray)
 {
@@ -41,13 +43,17 @@ void	ft_calculate_ray_dir(t_data *data)
 {
 	int	i;
 	double	ang;
+	int	cond1;
+	int	cond2;
 
 	i = 0;
 	while (i < (int)WIDTH)
 	{
 		ang = data->ray[i].angle;
 		data->ray[i].up = (ang > (double)PI && ang < (2 * (double)PI));
-		data->ray[i].right = !(ang < (3 * ((double)PI / 2))) && (ang > ((double)PI / 2));
+		cond1 = (ang > 0 && ang < PI/2) || (ang < 2*PI && ang > 3*PI/2);
+		cond2 = (ang < (3 * ((double)PI / 2))) && (ang > ((double)PI / 2));
+		data->ray[i].right = cond1 || !cond2;
 		i++;
 	}
 
@@ -84,7 +90,7 @@ void	ft_vertical_intersect(t_data *data, int i)
 
 	ray[i].v_x = ray[i].nearx;
 	ray[i].v_y = data->player->ypos + (2 * ray[i].right - 1) * (fabs(data->player->xpos - ray[i].v_x) * tan(ray[i].angle));
-	offsetx = (2 * ray[i].right - 1) * (double)GRID;
+	offsetx = ((2 * ray[i].right) - 1) * (double)GRID;
 	offsety = tan(ray[i].angle) * offsetx;
 	while(((int)ray[i].v_y  / (int)GRID) > -1 && (int)ray[i].v_y  / (int)GRID < data->map->ymap&& \
 				((int)ray[i].v_x  / (int)GRID) > -1 && (int)ray[i].v_x  / (int)GRID < data->map->xmap &&\
@@ -113,10 +119,13 @@ void	ft_calculate(t_data *data)
 		double vertical[] = {ray[i].v_x, ray[i].v_y};
 		double horizontal[] = {ray[i].h_x, ray[i].h_y};
 		double pp[] = {data->player->xpos, data->player->ypos};
-		if (ft_hypo_calc(pp, vertical, data)[0] < ft_hypo_calc(pp, horizontal, data)[0])
-			ray[i].is_vertical = 1;
-		else
-			ray[i].is_vertical = 0;
+		double *vv = ft_hypo_calc(pp, vertical, data);
+		double *hh = ft_hypo_calc(pp, horizontal, data);
+		ray[i].is_vertical = vv[0] < hh[0];
+		ray[i].distance = (ray[i].is_vertical) * vv[0] + !(ray[i].is_vertical) * hh[0];
+		ray[i].wall = (double)HEIGHT / (ray[i].distance * cos(data->player->angle - ray[i].angle))* 5;
+		free(vv);
+		free(hh);
 		i++;
 	}
 }
