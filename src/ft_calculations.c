@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:45:52 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/12 19:02:19 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/12 19:09:41 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ void	ft_calculate(t_data *data)
 		ray[i].is_vertical = vv[0] < hh[0];
 		ray[i].distance = (ray[i].is_vertical) * vv[0] + !(ray[i].is_vertical) * hh[0];
 		ray[i].wall = (double)HEIGHT / (ray[i].distance * cos(data->player->angle - ray[i].angle))* 5;
+		if (ray[i].wall > HEIGHT)
+			ray[i].wall = HEIGHT;
 		free(vv);
 		free(hh);
 		i++;

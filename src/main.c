@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 10:09:02 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/08 19:46:28 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/12 19:43:43 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,12 @@ int ft_tst(int key, void *param)
 	t_data *data = (t_data *)param;
 	if (key == ESC)
 		ft_exit(data);
-	if (key == KEY_RG)
-		data->player->angle += 0.1;
-	if (key == KEY_LE)
-		data->player->angle -= 0.1;
-	if (data->player->angle > (2 * (double)PI))
-		data->player->angle -= 2 * (double)PI;
-	if (data->player->angle < 0)
-		data->player->angle += 2 * (double)PI;
+	// data->player->angle += (key == KEY_RG) * 0.1;
+	data->player->angle += ((key == KEY_RG) + (key == KEY_LE) * (-1)) * 0.1;
+	data->player->angle -= (data->player->angle > (2 * (double)PI)) * (2 * (double)PI);
+	data->player->angle += (data->player->angle < 0) * (2 * (double)PI);
+	data->player->xpos += ((key == KEY_W) + (-1 * (key == KEY_S))) * (cos(data->player->angle));
+	data->player->ypos += ((key == KEY_W) + (-1 * (key == KEY_S))) * (sin(data->player->angle));
 	ft_calculat_ray_angles(&data->player->angle, data->ray);
 	ft_calculate_ray_dir(data);
 	ft_calculate(data);
