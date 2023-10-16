@@ -1,7 +1,7 @@
 NO ./map/acacia_log.xpm
 
-SO ./map/acacia_log.xpm
-WE ./map/acacia_log.xpm
+SO ./map/acacia_leaves.xpm
+WE ./map/ea.xpm
 EA ./map/acacia_log.xpm
 
 
@@ -10,7 +10,7 @@ C 0,0,20
 
 111111111111111
 100000000000001
-1010E0100011111111
+1010S0100011111111
 100000100000001
 111111111111111
      1

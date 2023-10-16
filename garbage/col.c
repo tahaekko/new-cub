@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 17:44:43 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/08 19:37:59 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/13 14:46:33 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_free_collector(t_collector *node)
 	{
 		tmp = (node);
 		node = (node)->next;
-		printf("node freed %p\n", tmp);
+		// printf("node freed %p\n", tmp);
 		free(tmp);
 		tmp = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 13:45:52 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/12 19:09:41 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/16 02:37:41 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_horizontal_intersect(t_data *data, int i)
 
 	while(((int)ray[i].h_y  / (int)GRID) > -1 && (int)ray[i].h_y  / (int)GRID < data->map->ymap&& \
 				((int)ray[i].h_x  / (int)GRID) > -1 && (int)ray[i].h_x  / (int)GRID < data->map->xmap &&\
-					data->map->map_arr[(int)ray[i].h_y  / (int)GRID][(int)ray[i].h_x / (int)GRID] == '0')
+					data->map->map_arr[(int)ray[i].h_y  / (int)GRID][(int)ray[i].h_x / (int)GRID] != '1')
 	{
 		ray[i].h_y += offsety;
 		ray[i].h_x += offsetx;
@@ -94,7 +94,7 @@ void	ft_vertical_intersect(t_data *data, int i)
 	offsety = tan(ray[i].angle) * offsetx;
 	while(((int)ray[i].v_y  / (int)GRID) > -1 && (int)ray[i].v_y  / (int)GRID < data->map->ymap&& \
 				((int)ray[i].v_x  / (int)GRID) > -1 && (int)ray[i].v_x  / (int)GRID < data->map->xmap &&\
-					data->map->map_arr[(int)ray[i].v_y  / (int)GRID][(int)ray[i].v_x / (int)GRID] == '0')
+					data->map->map_arr[(int)ray[i].v_y  / (int)GRID][(int)ray[i].v_x / (int)GRID] != '1')
 	{
 			ray[i].v_x += offsetx;
 			ray[i].v_y += offsety;
@@ -123,9 +123,9 @@ void	ft_calculate(t_data *data)
 		double *hh = ft_hypo_calc(pp, horizontal, data);
 		ray[i].is_vertical = vv[0] < hh[0];
 		ray[i].distance = (ray[i].is_vertical) * vv[0] + !(ray[i].is_vertical) * hh[0];
-		ray[i].wall = (double)HEIGHT / (ray[i].distance * cos(data->player->angle - ray[i].angle))* 5;
-		if (ray[i].wall > HEIGHT)
-			ray[i].wall = HEIGHT;
+		ray[i].wall = ((double)HEIGHT / (ray[i].distance * cos(data->player->angle - ray[i].angle)))* (GRID * 0.9);
+		// if (ray[i].wall > HEIGHT)
+		// 	ray[i].wall = HEIGHT;
 		free(vv);
 		free(hh);
 		i++;

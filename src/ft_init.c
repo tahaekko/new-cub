@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 13:42:21 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/12 18:51:02 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/13 04:27:01 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_map	*ft_map_init(t_data *data)
 	map = c_malloc(sizeof(t_map), &data->col);
 	map->xmap = 0;
 	map->ymap = 0;
-	map->off_map = (int)GRID;
+	map->off_map = (int)20;
 	map->map_compo = NULL;
 
 	return (map);
@@ -112,10 +112,12 @@ t_player	*ft_init_player(t_data *data)
 	player->grid_x = (double)ft_get_player_x(data, player->ypos);
 	player->ypos =  (double)player->grid_y * (double)GRID + ((double)GRID / 2);
 	player->xpos =  (double)player->grid_x * (double)GRID + ((double)GRID / 2);
+	player->x_inmap = player->grid_x * data->map->off_map + (data->map->off_map / 2);
+	player->y_inmap = player->grid_y * data->map->off_map + (data->map->off_map / 2);
 	player->angle = ft_get_angle(data) * (double)(DEG_TO_RAD);
 	player->xrot = cos(player->angle);
 	player->yrot = sin(player->angle);
-
+	player->speed = (double)GRID * 0.02;
 	return (player);
 }
 

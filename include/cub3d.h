@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/12 18:37:36 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/16 02:43:27 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,21 @@
 #include <stdbool.h>
 # include "libft.h"
 # include "gnl.h"
-# define WIDTH 600
-# define HEIGHT 600
+# define WIDTH 1080
+# define HEIGHT 720
 # define FOV 60
 # define PI 3.141592653589793
 # define RAD_TO_DEG 57.2958
 # define DEG_TO_RAD 0.01745329251
-# define GRID 20
+# define GRID 1000
 
 #define RECTCOLOR 0x7BB30C
 #define FLOOR 0x1859B3
 #define WALL 0x2DB362
 #define RAY 0xB3160C
 #define GRID_C 0x9029B3
+
+#define SPEED 20
 
 /*Key kode define*/
 
@@ -94,9 +96,12 @@ typedef struct s_player
 	int		grid_y;
 	double	xpos;
 	double	ypos;
+	int		x_inmap;
+	int		y_inmap;
 	double	angle;
 	double	xrot;
 	double	yrot;
+	double	speed;
 }	t_player;
 
 typedef struct s_img{

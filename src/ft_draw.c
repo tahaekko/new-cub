@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/12 19:07:34 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/16 02:43:33 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,29 @@
 
 void	ft_draw_wall(t_data *data)
 {
-	int	y =0;
+	int	y = 0;
 	int i = 0;
 	int start;
+	int	x_hit_poit_each_grid, y_hit_poit_each_grid, color;
+	int	x_texture, y_texture;
 
 	while (i < WIDTH)
 	{
 		start = ((int)HEIGHT / 2) - (data->ray[i].wall/2);
+		x_hit_poit_each_grid = !(data->ray[i].is_vertical) * (int)(data->ray[i].h_x) % (int)GRID  + \
+								data->ray[i].is_vertical * ((int)(data->ray[i].v_y) % (int)GRID);
+		x_texture = (x_hit_poit_each_grid * (data->texture[2].line /  (data->texture[2].bpp / 8))) / (int)GRID;
 		y = 0;
 		while (y < data->ray[i].wall)
 		{
-			ft_put_pix(data->map->map_img, i,y + start,0xFF0000,data);
+			if (y + start < 0 || y + start > HEIGHT)
+			{
+				y++;
+				continue;
+			}
+			y_texture = (y * (int)GRID) / data->ray[i].wall;
+			color = *((int *)(data->texture[2].addr) + ((y_texture * (data->texture[2].line / 4)) + x_hit_poit_each_grid));
+			ft_put_pix(data->map->map_img, i,y + start,color,data);
 			y++;
 		}
 		i++;
@@ -96,8 +108,8 @@ void	ft_draw_player(t_data *data)
 		j = 0;
 		while (j < player->width)
 		{
-			ft_put_pix(data->map->map_img, (player->xpos) + (j++) - ((double)player->width / 2), \
-				(player->ypos) + i - ((double)player->height / 2), 0xFF00FF, data);
+			ft_put_pix(data->map->map_img, (player->x_inmap) + (j++) - ((double)player->width / 2), \
+				(player->y_inmap) + i - ((double)player->height / 2), 0xFF00FF, data);
 		}
 		i++;
 	}
@@ -106,33 +118,40 @@ void	ft_draw_player(t_data *data)
 	// ft_draw_dir();
 }
 
-void	ft_draw_init(t_data *data)
-{
-	ft_draw_map(data);
-	ft_draw_player(data);
-	ft_draw_debug(data, 1);
-	ft_draw_wall(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->map->map_img->img_ptr, 0,0);
 
-	// ft_draw_player();
+void	ft_draw_sky(t_data *data)
+{
+	for (int i = 0; i < (int)HEIGHT / 2; i++)
+		for (int j = 0; j < (int)WIDTH; j++)
+			ft_put_pix(data->map->map_img, j,i,data->ciel_color,data);
 }
 
-void	set_black_back(t_data *data)
+void	ft_draw_floor(t_data *data)
 {
-	for (int i = 0; i < (int)HEIGHT; i++)
+	for (int i = (int)HEIGHT / 2; i < (int)HEIGHT; i++)
 		for (int j = 0; j < (int)WIDTH; j++)
-			ft_put_pix(data->map->map_img, j,i,0xFFFFFFFF,data);
+			ft_put_pix(data->map->map_img, j,i,data->floor_color,data);
+}
+void	ft_draw_init(t_data *data)
+{
+	// ft_draw_map(data);
+	// ft_draw_player(data);
+	// ft_draw_debug(data, 1);
+	ft_draw_sky(data);
+	ft_draw_floor(data);
+	ft_draw_wall(data);
+	// exit(1);
+	mlx_put_image_to_window(data->mlx, data->win, data->map->map_img->img_ptr, 0,0);
 }
 
 void	ft_update(t_data *data)
 {
 	mlx_clear_window(data->mlx, data->win);
-	// mlx_destroy_image(data->mlx, data->map->map_img->img_ptr);
-	// data->map->map_img->img_ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	set_black_back(data);
-	ft_draw_map(data);
-	ft_draw_player(data);
-	ft_draw_debug(data, 1);
+	ft_draw_sky(data);
+	ft_draw_floor(data);
+	// ft_draw_map(data);
+	// ft_draw_player(data);
+	// ft_draw_debug(data, 1);
 	ft_draw_wall(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->map->map_img->img_ptr, 0,0);
 
