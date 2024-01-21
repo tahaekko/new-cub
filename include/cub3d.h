@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 12:54:38 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/16 02:43:27 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/17 15:36:12 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ typedef	struct s_ray
 	int	right;
 	int is_vertical;
 	double		angle;
+	int			texture_index;
+	t_img	texture;
 }	t_ray;
 
 typedef enum s_err

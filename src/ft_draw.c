@@ -6,7 +6,7 @@
 /*   By: tahaexo <tahaexo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/30 05:01:57 by msamhaou          #+#    #+#             */
-/*   Updated: 2023/10/16 02:43:33 by tahaexo          ###   ########.fr       */
+/*   Updated: 2023/10/17 15:39:33 by tahaexo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_draw_wall(t_data *data)
 		start = ((int)HEIGHT / 2) - (data->ray[i].wall/2);
 		x_hit_poit_each_grid = !(data->ray[i].is_vertical) * (int)(data->ray[i].h_x) % (int)GRID  + \
 								data->ray[i].is_vertical * ((int)(data->ray[i].v_y) % (int)GRID);
-		x_texture = (x_hit_poit_each_grid * (data->texture[2].line /  (data->texture[2].bpp / 8))) / (int)GRID;
+		x_texture = (x_hit_poit_each_grid * (data->ray[i].texture.line /  (data->ray[i].texture.bpp / 8))) / (int)GRID;
 		y = 0;
 		while (y < data->ray[i].wall)
 		{
@@ -35,7 +35,7 @@ void	ft_draw_wall(t_data *data)
 				continue;
 			}
 			y_texture = (y * (int)GRID) / data->ray[i].wall;
-			color = *((int *)(data->texture[2].addr) + ((y_texture * (data->texture[2].line / 4)) + x_hit_poit_each_grid));
+			color = *((int *)(data->ray[i].texture.addr) + ((y_texture * (data->ray[i].texture.line / 4)) + x_hit_poit_each_grid));
 			ft_put_pix(data->map->map_img, i,y + start,color,data);
 			y++;
 		}
